@@ -726,17 +726,6 @@ public class ScientificCal {
 		
 		JMenuItem MenuItemUnitConverter = new JMenuItem("Unit Converter");
 		Menu.add(MenuItemUnitConverter);
-		MenuItemUnitConverter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				
-				
-				
-				
-				
-				 
-			    }
-			});
 		
 		JMenuItem MenuItemExit = new JMenuItem("Exit");
 		MenuItemExit.addActionListener(new ActionListener() {
