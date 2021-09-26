@@ -32,6 +32,18 @@ public class ScientificCal {
 		}
 		return f;
 	}
+    
+    long gcd(long a, long b)
+	{
+		if (a == 0)
+			return b;
+		else if (b == 0)
+			return a;
+		if (a < b)
+			return gcd(a, b % a);
+		else
+			return gcd(b, a % b);
+	}
 	String operation ;
 	String  answer;
 	private JTextField textFieldMemory;
@@ -651,6 +663,40 @@ public class ScientificCal {
 		frmScientificCalculator.getContentPane().add(btnDown);
 		
 		JButton btnStandardDecimalConversion = new JButton("S-D");
+		btnStandardDecimalConversion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
+
+						// Fetch integral value of the decimal
+						double intVal = Math.floor(ops);
+
+						// Fetch fractional part of the decimal
+						double fVal = ops - intVal;
+
+						// Consider precision value to
+						// convert fractional part to
+						// integral equivalent
+						final long pVal = 1000000000;
+
+						long gcdVal = gcd(Math.round(fVal * pVal), pVal);
+
+						// Calculate num and deno
+						long num = Math.round(fVal * pVal) / gcdVal;
+						long deno = pVal / gcdVal;
+
+					String  opa =(long) (intVal * deno) + num + "/" + deno ;
+					answer = String.format("%s", opa);
+					textFieldDisplay.setText(answer);
+					    }
+					catch(Exception ex){
+						JOptionPane.showMessageDialog(null, "Syntax Error...");
+	    }
+				
+			}
+		});
+		
+		
 		btnStandardDecimalConversion.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnStandardDecimalConversion.setBackground(new Color(32, 178, 170));
 		btnStandardDecimalConversion.setBounds(313, 111, 57, 28);
