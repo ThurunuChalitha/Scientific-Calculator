@@ -26,11 +26,11 @@ public class ScientificCal {
 	int r = (int)num2;
 	int i;
     int factorial(int n) {
-		int f = 1;
+		int j = 1;
 		for(int i =1; i <= n; i++) {
-			f = f * i;
+			j = j * i;
 		}
-		return f;
+		return j;
 	}
     
     long gcd(long a, long b)
