@@ -3,6 +3,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JMenu;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -12,8 +13,65 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JButton;
+import java.awt.Color;
 
 public class UnitConverter {
+	
+	double val_Area,val_Length,val_Mass,val_Temp,val_Power,val_Ener,val_Press=0.0000;
+	double ans_Area,ans_Length,ans_Mass,ans_Temp,ans_Power,ans_Ener,ans_Press=0.0000;
+	
+	/**
+	 * Length constants
+	 */
+	double cmTft=30.48,cmTin=0.3937,kmTcm=100000,cmTm=0.01,mileTcm=160934,n_mileTcm=185200,cmTyd=0.0109,ftTin=12.00,kmTft=3280.84
+			,ftTm=0.3048,mileTft=5280,n_mileTft=6076.12,ftTyd=0.3333,kmTin=39370.1,mTin=39.3701,mileTin=63360.034
+			,n_mileTin=72913.4252,ydTin=36.00,kmTm=1000,mileTkm=1.609,n_mileTkm=1.852,kmTyd=1093.61,mileTm=1609.34
+			,n_mileTmile=1.15078,mileTyd=1760,n_mileTm=	1852,mTyd=1.09361,n_mileTyd	=2025.37;
+	
+	/**
+	 * Area constants
+	 */
+	double acTm2=4046.86,hecTm2=10000,hecTac=2.47;
+	
+	
+	/**
+	 * Mass constants
+	 */
+	
+	double kgToz=35.274,lbToz=16,ozTg=28.3495,kgTg=1000,lbTg=453.592,ozTkg=0.0283495,gTkg=0.001,lbTkg=0.453592,gTlb=0.00220462,kgTlb=2.20462;
+
+	/**
+	 * Temperature constants
+	 */
+	double cel,kel, farh;
+	
+	/**
+	 * Power constants
+	 */
+	double kWThp=1.34102,hpTkW=0.7457;
+	
+	/**
+	 * Energy constants
+	 */
+	double kgf_mTJ=9.80665,calTJ=4.184,JTkgf_m=0.10197,kgf_mTkgf_m=1,calTkgf_m=0.426832812,JTcal=0.000239006,kgf_mTcal=2.34,calTcal=1;
+	
+	/**
+	 * Pressure constants
+	 */
+	
+	double atmTPa=101325,atmTmmHg=760,atmTkgf_cm2=1.03323,atmTlbf_in2=14.6959,mmHgTPa=133.322,kgf_cm2TPa=98066.5,
+			lbf_in2TPa=6894.76,kgf_cm2TmmHg=735.559,lbf_in2TmmHg=51.7149,
+			kgf_cm2Tlbf_in2=14.2233,lbf_in2Tkgf_cm2=0.070307;
+	
+	private JButton btnArea;
+	private JButton btnLength;
+	private JButton btnMass;
+	private JButton btnTemp;
+	private JButton btnPow;
+	private JButton btnEnerg;
+	private JButton btnPress;
+
 
 	private JFrame frame;
 	private JTextField textLength;
@@ -115,11 +173,11 @@ public class UnitConverter {
 		frame.getContentPane().add(textLength);
 		textLength.setColumns(10);
 		
-		JComboBox comboInput_L = new JComboBox();
-		comboInput_L.setModel(new DefaultComboBoxModel(new String[] {"in", "cm", "ft", "m", "yd", "mile", "km", "n mile"}));
-		comboInput_L.setToolTipText("");
-		comboInput_L.setBounds(68, 147, 64, 21);
-		frame.getContentPane().add(comboInput_L);
+		JComboBox comboInput_Len = new JComboBox();
+		comboInput_Len.setModel(new DefaultComboBoxModel(new String[] {"in", "cm", "ft", "m", "yd", "mile", "km", "n mile"}));
+		comboInput_Len.setToolTipText("");
+		comboInput_Len.setBounds(68, 147, 64, 21);
+		frame.getContentPane().add(comboInput_Len);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Convert :");
 		lblNewLabel_2_1.setBounds(10, 151, 57, 13);
@@ -154,7 +212,7 @@ public class UnitConverter {
 		frame.getContentPane().add(lblNewLabel_2_1_2);
 		
 		JComboBox comboInput_AR = new JComboBox();
-		comboInput_AR.setModel(new DefaultComboBoxModel(new String[] {"acre", "m\u00B2"}));
+		comboInput_AR.setModel(new DefaultComboBoxModel(new String[] {"acre", "m\u00B2", "hectare"}));
 		comboInput_AR.setToolTipText("");
 		comboInput_AR.setBounds(239, 147, 64, 21);
 		frame.getContentPane().add(comboInput_AR);
@@ -164,7 +222,7 @@ public class UnitConverter {
 		frame.getContentPane().add(lblNewLabel_2_1_1_1);
 		
 		JComboBox comboOutput_AR = new JComboBox();
-		comboOutput_AR.setModel(new DefaultComboBoxModel(new String[] {"acre", "m\u00B2"}));
+		comboOutput_AR.setModel(new DefaultComboBoxModel(new String[] {"acre", "m\u00B2", "hectare"}));
 		comboOutput_AR.setToolTipText("");
 		comboOutput_AR.setBounds(239, 174, 64, 21);
 		frame.getContentPane().add(comboOutput_AR);
@@ -376,7 +434,460 @@ public class UnitConverter {
 		separator_2.setBounds(10, 429, 505, 2);
 		frame.getContentPane().add(separator_2);
 		
+		/** Length Conversion --------------------------------------> */
+		JButton btnLength = new JButton(">");
+		btnLength.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(comboInput_Len.getSelectedItem().toString()=="in" && comboOutput_Len.getSelectedItem().toString()=="in") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="cm" && comboOutput_Len.getSelectedItem().toString()=="cm") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="ft" && comboOutput_Len.getSelectedItem().toString()=="ft") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="m" && comboOutput_Len.getSelectedItem().toString()=="m") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="yd" && comboOutput_Len.getSelectedItem().toString()=="yd") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="mile" && comboOutput_Len.getSelectedItem().toString()=="mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="km" && comboOutput_Len.getSelectedItem().toString()=="km") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="n mile" && comboOutput_Len.getSelectedItem().toString()=="n mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				
+				
+				if(comboInput_Len.getSelectedItem().toString()=="in" && comboOutput_Len.getSelectedItem().toString()=="cm") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/cmTin;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="cm" && comboOutput_Len.getSelectedItem().toString()=="in") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*cmTin;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				
+				if(comboInput_Len.getSelectedItem().toString()=="in" && comboOutput_Len.getSelectedItem().toString()=="ft") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/ftTin;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				
+				if(comboInput_Len.getSelectedItem().toString()=="ft" && comboOutput_Len.getSelectedItem().toString()=="in") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*ftTin;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="in" && comboOutput_Len.getSelectedItem().toString()=="m") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/mTin;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="m" && comboOutput_Len.getSelectedItem().toString()=="in") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*mTin;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="yd" && comboOutput_Len.getSelectedItem().toString()=="in") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*ydTin;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="in" && comboOutput_Len.getSelectedItem().toString()=="yd") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/ydTin;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="in" && comboOutput_Len.getSelectedItem().toString()=="mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/mileTin;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="mile" && comboOutput_Len.getSelectedItem().toString()=="in") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*mileTin;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="km" && comboOutput_Len.getSelectedItem().toString()=="in") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*kmTin;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="in" && comboOutput_Len.getSelectedItem().toString()=="km") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/kmTin;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="in" && comboOutput_Len.getSelectedItem().toString()=="n mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/n_mileTin;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="n mile" && comboOutput_Len.getSelectedItem().toString()=="in") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*n_mileTin;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="ft" && comboOutput_Len.getSelectedItem().toString()=="cm") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/cmTft;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="cm" && comboOutput_Len.getSelectedItem().toString()=="ft") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*cmTft;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="cm" && comboOutput_Len.getSelectedItem().toString()=="m") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*cmTm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="m" && comboOutput_Len.getSelectedItem().toString()=="cm") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/cmTm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="cm" && comboOutput_Len.getSelectedItem().toString()=="yd") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*cmTyd;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="yd" && comboOutput_Len.getSelectedItem().toString()=="cm") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/cmTyd;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="cm" && comboOutput_Len.getSelectedItem().toString()=="mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/mileTcm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="mile" && comboOutput_Len.getSelectedItem().toString()=="cm") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*mileTcm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="cm" && comboOutput_Len.getSelectedItem().toString()=="km") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/kmTcm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="km" && comboOutput_Len.getSelectedItem().toString()=="cm") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*kmTcm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="n mile" && comboOutput_Len.getSelectedItem().toString()=="cm") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*n_mileTcm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="cm" && comboOutput_Len.getSelectedItem().toString()=="n mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/n_mileTcm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="ft" && comboOutput_Len.getSelectedItem().toString()=="m") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*ftTm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="m" && comboOutput_Len.getSelectedItem().toString()=="ft") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/ftTm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="ft" && comboOutput_Len.getSelectedItem().toString()=="yd") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*ftTyd;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="yd" && comboOutput_Len.getSelectedItem().toString()=="ft") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/ftTyd;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="ft" && comboOutput_Len.getSelectedItem().toString()=="mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/mileTft;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="mile" && comboOutput_Len.getSelectedItem().toString()=="ft") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*mileTft;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="km" && comboOutput_Len.getSelectedItem().toString()=="ft") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*kmTft;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="ft" && comboOutput_Len.getSelectedItem().toString()=="km") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/kmTft;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="ft" && comboOutput_Len.getSelectedItem().toString()=="n mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/n_mileTft;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="n mile" && comboOutput_Len.getSelectedItem().toString()=="ft") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*n_mileTft;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="m" && comboOutput_Len.getSelectedItem().toString()=="yd") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*mTyd;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="yd" && comboOutput_Len.getSelectedItem().toString()=="m") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/mTyd;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="m" && comboOutput_Len.getSelectedItem().toString()=="mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/mileTm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="mile" && comboOutput_Len.getSelectedItem().toString()=="m") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*mileTm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="m" && comboOutput_Len.getSelectedItem().toString()=="km") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/kmTm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="km" && comboOutput_Len.getSelectedItem().toString()=="m") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*kmTm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="m" && comboOutput_Len.getSelectedItem().toString()=="n mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/n_mileTm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="n mile" && comboOutput_Len.getSelectedItem().toString()=="m") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*n_mileTm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="yd" && comboOutput_Len.getSelectedItem().toString()=="mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/mileTyd;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="mile" && comboOutput_Len.getSelectedItem().toString()=="yd") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*mileTyd;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="km" && comboOutput_Len.getSelectedItem().toString()=="yd") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*kmTyd;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="yd" && comboOutput_Len.getSelectedItem().toString()=="km") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/kmTyd;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="yd" && comboOutput_Len.getSelectedItem().toString()=="n mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/n_mileTyd;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="n mile" && comboOutput_Len.getSelectedItem().toString()=="yd") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*n_mileTyd;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="mile" && comboOutput_Len.getSelectedItem().toString()=="km") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*mileTkm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="km" && comboOutput_Len.getSelectedItem().toString()=="mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/mileTkm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="mile" && comboOutput_Len.getSelectedItem().toString()=="n mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/n_mileTmile;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="n mile" && comboOutput_Len.getSelectedItem().toString()=="mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*n_mileTmile;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="n mile" && comboOutput_Len.getSelectedItem().toString()=="km") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length*n_mileTkm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}
+				if(comboInput_Len.getSelectedItem().toString()=="km" && comboOutput_Len.getSelectedItem().toString()=="n mile") {
+					double val_Length =ExpNumLength();
+					ans_Length=val_Length/n_mileTkm;
+					textAnsLen.setText(String.valueOf(ans_Length));
+				}	
+				
+			}
+		});
+		btnLength.setBackground(Color.LIGHT_GRAY);
+		btnLength.setForeground(Color.BLACK);
+		btnLength.setBounds(10, 204, 39, 21);
+		frame.getContentPane().add(btnLength);
 		
+		/** Area Conversion --------------------------------------> */
+		JButton btnArea = new JButton(">");
+		btnArea.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(comboInput_AR.getSelectedItem().toString()=="acre" && comboOutput_AR.getSelectedItem().toString()=="m²") {
+					double val_Area =ExpNumArea();
+					ans_Area=val_Area*acTm2;
+					textAns_AR.setText(String.valueOf(ans_Area));
+				}
+				
+				if(comboInput_AR.getSelectedItem().toString()=="m²" && comboOutput_AR.getSelectedItem().toString()=="acre") {
+					double val_Area =ExpNumArea();
+					ans_Area=val_Area/acTm2;
+					textAns_AR.setText(String.valueOf(ans_Area));
+				}
+				
+				if(comboInput_AR.getSelectedItem().toString()=="m²" && comboOutput_AR.getSelectedItem().toString()=="hectare") {
+					double val_Area =ExpNumArea();
+					ans_Area=val_Area/hecTm2;
+					textAns_AR.setText(String.valueOf(ans_Area));
+				}
+				
+				if(comboInput_AR.getSelectedItem().toString()=="hectare" && comboOutput_AR.getSelectedItem().toString()=="m²") {
+					double val_Area =ExpNumArea();
+					ans_Area=val_Area*hecTm2;
+					textAns_AR.setText(String.valueOf(ans_Area));
+				}
+				
+				if(comboInput_AR.getSelectedItem().toString()=="hectare" && comboOutput_AR.getSelectedItem().toString()=="acre") {
+					double val_Area =ExpNumArea();
+					ans_Area=val_Area*hecTac;
+					textAns_AR.setText(String.valueOf(ans_Area));
+				}
+				
+				if(comboInput_AR.getSelectedItem().toString()=="acre" && comboOutput_AR.getSelectedItem().toString()=="hectare") {
+					double val_Area =ExpNumArea();
+					ans_Area=val_Area/hecTac;
+					textAns_AR.setText(String.valueOf(ans_Area));
+				}
+				if(comboInput_AR.getSelectedItem().toString()=="acre" && comboOutput_AR.getSelectedItem().toString()=="acre") {
+					double val_Area =ExpNumArea();
+					ans_Area=val_Area;
+					textAns_AR.setText(String.valueOf(ans_Area));
+				}
+				if(comboInput_AR.getSelectedItem().toString()=="hectare" && comboOutput_AR.getSelectedItem().toString()=="hectare") {
+					double val_Area =ExpNumArea();
+					ans_Area=val_Area;
+					textAns_AR.setText(String.valueOf(ans_Area));
+				}
+				if(comboInput_AR.getSelectedItem().toString()=="m²" && comboOutput_AR.getSelectedItem().toString()=="m²") {
+					double val_Area =ExpNumArea();
+					ans_Area=val_Area;
+					textAns_AR.setText(String.valueOf(ans_Area));
+				}
+			}
+		});
+		btnArea.setForeground(Color.BLACK);
+		btnArea.setBackground(Color.LIGHT_GRAY);
+		btnArea.setBounds(181, 204, 39, 21);
+		frame.getContentPane().add(btnArea);
+		
+		JButton btnMass = new JButton(">");
+		btnMass.setForeground(Color.BLACK);
+		btnMass.setBackground(Color.LIGHT_GRAY);
+		btnMass.setBounds(351, 204, 39, 21);
+		frame.getContentPane().add(btnMass);
+		
+		JButton btnTemp = new JButton(">");
+		btnTemp.setForeground(Color.BLACK);
+		btnTemp.setBackground(Color.LIGHT_GRAY);
+		btnTemp.setBounds(10, 387, 39, 21);
+		frame.getContentPane().add(btnTemp);
+		
+		JButton btnPow = new JButton(">");
+		btnPow.setForeground(Color.BLACK);
+		btnPow.setBackground(Color.LIGHT_GRAY);
+		btnPow.setBounds(181, 387, 39, 21);
+		frame.getContentPane().add(btnPow);
+		
+		JButton btnEnerg = new JButton(">");
+		btnEnerg.setForeground(Color.BLACK);
+		btnEnerg.setBackground(Color.LIGHT_GRAY);
+		btnEnerg.setBounds(351, 387, 39, 21);
+		frame.getContentPane().add(btnEnerg);
+		
+		JButton btnPress = new JButton(">");
+		btnPress.setForeground(Color.BLACK);
+		btnPress.setBackground(Color.LIGHT_GRAY);
+		btnPress.setBounds(181, 563, 39, 21);
+		frame.getContentPane().add(btnPress);
+			
 
 	}
+	
+	/** Area Conversion Exception Handling>>>>>>>>>>>>>>>>>>>>>> */
+	public double  ExpNumArea() {
+		
+		try {
+			ans_Area=Double.parseDouble(textArea.getText());
+			
+		}catch(NumberFormatException e1){
+			JOptionPane.showMessageDialog(null,"Enter valid input!");	
+		}
+		return ans_Area;
+	}
+	
+	/** Length Conversion Exception Handling>>>>>>>>>>>>>>>>>>>>>> */
+	public double  ExpNumLength() {
+		
+		try {
+			ans_Length=Double.parseDouble(textLength.getText());
+			
+		}catch(NumberFormatException e1){
+			JOptionPane.showMessageDialog(null,"Enter valid input!");	
+		}
+		return ans_Length;
+	}
+	
 }
