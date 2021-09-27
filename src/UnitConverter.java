@@ -80,7 +80,7 @@ public class UnitConverter {
 	private JTextField textAns_AR;
 	private JTextField textMass;
 	private JTextField textAns_MA;
-	private JTextField textLen;
+	private JTextField textTemp;
 	private JTextField textAns_Tem;
 	private JTextField textPow;
 	private JTextField textAns_POW;
@@ -271,10 +271,10 @@ public class UnitConverter {
 		lblNewLabel_1_3.setBounds(24, 261, 98, 19);
 		frame.getContentPane().add(lblNewLabel_1_3);
 		
-		textLen = new JTextField();
-		textLen.setColumns(10);
-		textLen.setBounds(68, 304, 64, 19);
-		frame.getContentPane().add(textLen);
+		textTemp = new JTextField();
+		textTemp.setColumns(10);
+		textTemp.setBounds(68, 304, 64, 19);
+		frame.getContentPane().add(textTemp);
 		
 		JLabel lblNewLabel_2_4 = new JLabel("Value :");
 		lblNewLabel_2_4.setBounds(10, 307, 48, 13);
@@ -833,19 +833,190 @@ public class UnitConverter {
 		btnArea.setBounds(181, 204, 39, 21);
 		frame.getContentPane().add(btnArea);
 		
+		/** Mass Conversion --------------------------------------> */
+		
 		JButton btnMass = new JButton(">");
+		btnMass.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(comboInput_MA.getSelectedItem().toString()=="oz" && comboOutput_MA.getSelectedItem().toString()=="oz") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}
+				if(comboInput_MA.getSelectedItem().toString()=="g" && comboOutput_MA.getSelectedItem().toString()=="g") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}
+				if(comboInput_MA.getSelectedItem().toString()=="kg" && comboOutput_MA.getSelectedItem().toString()=="kg") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}
+				if(comboInput_MA.getSelectedItem().toString()=="lb" && comboOutput_MA.getSelectedItem().toString()=="lb") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}
+				if(comboInput_MA.getSelectedItem().toString()=="oz" && comboOutput_MA.getSelectedItem().toString()=="g") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass*ozTg;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}
+				if(comboInput_MA.getSelectedItem().toString()=="g" && comboOutput_MA.getSelectedItem().toString()=="oz") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass/ozTg;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}
+				if(comboInput_MA.getSelectedItem().toString()=="kg" && comboOutput_MA.getSelectedItem().toString()=="oz") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass*kgToz;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}
+				if(comboInput_MA.getSelectedItem().toString()=="oz" && comboOutput_MA.getSelectedItem().toString()=="kg") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass/kgToz;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}
+				if(comboInput_MA.getSelectedItem().toString()=="oz" && comboOutput_MA.getSelectedItem().toString()=="lb") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass/lbToz;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}
+				if(comboInput_MA.getSelectedItem().toString()=="lb" && comboOutput_MA.getSelectedItem().toString()=="oz") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass*lbToz;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}
+				if(comboInput_MA.getSelectedItem().toString()=="g" && comboOutput_MA.getSelectedItem().toString()=="kg") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass/kgTg;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}
+				if(comboInput_MA.getSelectedItem().toString()=="kg" && comboOutput_MA.getSelectedItem().toString()=="g") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass*kgTg;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}
+				if(comboInput_MA.getSelectedItem().toString()=="g" && comboOutput_MA.getSelectedItem().toString()=="lb") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass/lbTg;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}
+				if(comboInput_MA.getSelectedItem().toString()=="lb" && comboOutput_MA.getSelectedItem().toString()=="g") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass*lbTg;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}
+				if(comboInput_MA.getSelectedItem().toString()=="kg" && comboOutput_MA.getSelectedItem().toString()=="lb") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass*kgTlb;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}
+				if(comboInput_MA.getSelectedItem().toString()=="lb" && comboOutput_MA.getSelectedItem().toString()=="kg") {
+					double val_Mass =ExpNumMass();
+					ans_Mass=val_Mass/kgTlb;
+					textAns_MA.setText(String.valueOf(ans_Mass));
+				}	
+				
+			}
+		});
 		btnMass.setForeground(Color.BLACK);
 		btnMass.setBackground(Color.LIGHT_GRAY);
 		btnMass.setBounds(351, 204, 39, 21);
 		frame.getContentPane().add(btnMass);
 		
+		
+		/** Temperature Conversion --------------------------------------> */
 		JButton btnTemp = new JButton(">");
+		btnTemp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(comboInput_T.getSelectedItem().toString()=="°F" && comboOutput_T.getSelectedItem().toString()=="°F") {
+					double val_Temp =ExpNumTemp();
+					ans_Temp=val_Temp;
+					textAns_Tem.setText(String.valueOf(ans_Temp));
+				}
+				if(comboInput_T.getSelectedItem().toString()=="°C" && comboOutput_T.getSelectedItem().toString()=="°C") {
+					double val_Temp =ExpNumTemp();
+					ans_Temp=val_Temp;
+					textAns_Tem.setText(String.valueOf(ans_Temp));
+				}
+				if(comboInput_T.getSelectedItem().toString()=="K" && comboOutput_T.getSelectedItem().toString()=="K") {
+					double val_Temp =ExpNumTemp();
+					ans_Temp=val_Temp;
+					textAns_Tem.setText(String.valueOf(ans_Temp));
+				}
+				if(comboInput_T.getSelectedItem().toString()=="°C" && comboOutput_T.getSelectedItem().toString()=="°F") {
+					double val_Temp =ExpNumTemp();
+					ans_Temp=(val_Temp*9/5)+32;
+					textAns_Tem.setText(String.valueOf(ans_Temp));
+				}
+				if(comboInput_T.getSelectedItem().toString()=="°F" && comboOutput_T.getSelectedItem().toString()=="°C") {
+					double val_Temp =ExpNumTemp();
+					ans_Temp=(val_Temp-32)*9/5;
+					textAns_Tem.setText(String.valueOf(ans_Temp));
+				}
+				if(comboInput_T.getSelectedItem().toString()=="°F" && comboOutput_T.getSelectedItem().toString()=="K") {
+					double val_Temp =ExpNumTemp();
+					ans_Temp=(val_Temp-32) *5/9 + 273.15;
+					textAns_Tem.setText(String.valueOf(ans_Temp));
+				}
+				if(comboInput_T.getSelectedItem().toString()=="K" && comboOutput_T.getSelectedItem().toString()=="°F") {
+					double val_Temp =ExpNumTemp();
+					ans_Temp=(val_Temp-273.15)*9/5+32;
+					textAns_Tem.setText(String.valueOf(ans_Temp));
+				}
+				if(comboInput_T.getSelectedItem().toString()=="K" && comboOutput_T.getSelectedItem().toString()=="°C") {
+					double val_Temp =ExpNumTemp();
+					ans_Temp= val_Temp-273.15;
+					textAns_Tem.setText(String.valueOf(ans_Temp));
+				}
+				if(comboInput_T.getSelectedItem().toString()=="°C" && comboOutput_T.getSelectedItem().toString()=="K") {
+					double val_Temp =ExpNumTemp();
+					ans_Temp=val_Temp+273.15;
+					textAns_Tem.setText(String.valueOf(ans_Temp));
+				}
+	
+				
+			}
+		});
 		btnTemp.setForeground(Color.BLACK);
 		btnTemp.setBackground(Color.LIGHT_GRAY);
 		btnTemp.setBounds(10, 387, 39, 21);
 		frame.getContentPane().add(btnTemp);
 		
+		
+		/** Power Conversion --------------------------------------> */
 		JButton btnPow = new JButton(">");
+		btnPow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(comboInput_POW.getSelectedItem().toString()=="kW" && comboOutput_POW.getSelectedItem().toString()=="kW") {
+					double val_POW =ExpNumPOW();
+					ans_Power=val_POW;
+					textAns_POW.setText(String.valueOf(ans_Power));
+				}
+				if(comboInput_POW.getSelectedItem().toString()=="hp" && comboOutput_POW.getSelectedItem().toString()=="hp") {
+					double val_POW =ExpNumPOW();
+					ans_Power=val_POW;
+					textAns_POW.setText(String.valueOf(ans_Power));
+				}
+				if(comboInput_POW.getSelectedItem().toString()=="hp" && comboOutput_POW.getSelectedItem().toString()=="kW") {
+					double val_POW =ExpNumPOW();
+					ans_Power=val_POW/kWThp;
+					textAns_POW.setText(String.valueOf(ans_Power));
+				}
+				if(comboInput_POW.getSelectedItem().toString()=="kW" && comboOutput_POW.getSelectedItem().toString()=="hp") {
+					double val_POW =ExpNumPOW();
+					ans_Power=val_POW*kWThp;
+					textAns_POW.setText(String.valueOf(ans_Power));
+				}
+				
+				
+				
+				
+			}
+		});
 		btnPow.setForeground(Color.BLACK);
 		btnPow.setBackground(Color.LIGHT_GRAY);
 		btnPow.setBounds(181, 387, 39, 21);
@@ -888,6 +1059,40 @@ public class UnitConverter {
 			JOptionPane.showMessageDialog(null,"Enter valid input!");	
 		}
 		return ans_Length;
+	}
+	
+	/** Mass Conversion Exception Handling>>>>>>>>>>>>>>>>>>>>>> */
+	public double  ExpNumMass() {
+		
+		try {
+			ans_Mass=Double.parseDouble(textMass.getText());
+			
+		}catch(NumberFormatException e1){
+			JOptionPane.showMessageDialog(null,"Enter valid input!");	
+		}
+		return ans_Mass;
+	}
+	/** Temperature Conversion Exception Handling>>>>>>>>>>>>>>>>>>>>>> */
+	public double  ExpNumTemp() {
+		
+		try {
+			ans_Temp=Double.parseDouble(textTemp.getText());
+			
+		}catch(NumberFormatException e1){
+			JOptionPane.showMessageDialog(null,"Enter valid input!");	
+		}
+		return ans_Temp;
+	}
+	/** Power Conversion Exception Handling>>>>>>>>>>>>>>>>>>>>>> */
+	public double  ExpNumPOW() {
+		
+		try {
+			ans_Power=Double.parseDouble(textPow.getText());
+			
+		}catch(NumberFormatException e1){
+			JOptionPane.showMessageDialog(null,"Enter valid input!");	
+		}
+		return ans_Power;
 	}
 	
 }
