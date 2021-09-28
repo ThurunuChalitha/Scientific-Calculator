@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.SystemColor;
 
 public class UnitConverter {
 	
@@ -117,10 +118,13 @@ public class UnitConverter {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(SystemColor.activeCaption);
+		frame.setForeground(Color.WHITE);
 		frame.setBounds(100, 100, 529, 652);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBackground(new Color(255, 255, 255));
 		frame.setJMenuBar(menuBar);
 		
 		JMenu mnNewMenu = new JMenu("File");
@@ -768,7 +772,7 @@ public class UnitConverter {
 		});
 		btnLength.setBackground(Color.LIGHT_GRAY);
 		btnLength.setForeground(Color.BLACK);
-		btnLength.setBounds(10, 204, 39, 21);
+		btnLength.setBounds(10, 204, 48, 21);
 		frame.getContentPane().add(btnLength);
 		
 		/** Area Conversion --------------------------------------> */
@@ -830,7 +834,7 @@ public class UnitConverter {
 		});
 		btnArea.setForeground(Color.BLACK);
 		btnArea.setBackground(Color.LIGHT_GRAY);
-		btnArea.setBounds(181, 204, 39, 21);
+		btnArea.setBounds(181, 204, 48, 21);
 		frame.getContentPane().add(btnArea);
 		
 		/** Mass Conversion --------------------------------------> */
@@ -923,7 +927,7 @@ public class UnitConverter {
 		});
 		btnMass.setForeground(Color.BLACK);
 		btnMass.setBackground(Color.LIGHT_GRAY);
-		btnMass.setBounds(351, 204, 39, 21);
+		btnMass.setBounds(351, 204, 48, 21);
 		frame.getContentPane().add(btnMass);
 		
 		
@@ -982,7 +986,7 @@ public class UnitConverter {
 		});
 		btnTemp.setForeground(Color.BLACK);
 		btnTemp.setBackground(Color.LIGHT_GRAY);
-		btnTemp.setBounds(10, 387, 39, 21);
+		btnTemp.setBounds(10, 387, 48, 21);
 		frame.getContentPane().add(btnTemp);
 		
 		
@@ -1017,7 +1021,7 @@ public class UnitConverter {
 		});
 		btnPow.setForeground(Color.BLACK);
 		btnPow.setBackground(Color.LIGHT_GRAY);
-		btnPow.setBounds(181, 387, 39, 21);
+		btnPow.setBounds(181, 387, 48, 21);
 		frame.getContentPane().add(btnPow);
 		
 		/** Energy Conversion --------------------------------------> */
@@ -1075,7 +1079,7 @@ public class UnitConverter {
 		});
 		btnEnergy.setForeground(Color.BLACK);
 		btnEnergy.setBackground(Color.LIGHT_GRAY);
-		btnEnergy.setBounds(351, 387, 39, 21);
+		btnEnergy.setBounds(351, 387, 48, 21);
 		frame.getContentPane().add(btnEnergy);
 		
 		/** Pressure Conversion --------------------------------------> */
@@ -1214,7 +1218,7 @@ public class UnitConverter {
 		});
 		btnPress.setForeground(Color.BLACK);
 		btnPress.setBackground(Color.LIGHT_GRAY);
-		btnPress.setBounds(181, 563, 39, 21);
+		btnPress.setBounds(181, 563, 48, 21);
 		frame.getContentPane().add(btnPress);
 			
 
