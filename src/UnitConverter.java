@@ -54,7 +54,7 @@ public class UnitConverter {
 	/**
 	 * Energy constants
 	 */
-	double kgf_mTJ=9.80665,calTJ=4.184,JTkgf_m=0.10197,kgf_mTkgf_m=1,calTkgf_m=0.426832812,JTcal=0.000239006,kgf_mTcal=2.34,calTcal=1;
+	double kgf_mTJ=9.80665,calTJ=4.184,JTkgf_m=0.10197,calTkgf_m=0.426832812,JTcal=0.000239006,kgf_mTcal=2.34;
 	
 	/**
 	 * Pressure constants
@@ -84,8 +84,8 @@ public class UnitConverter {
 	private JTextField textAns_Tem;
 	private JTextField textPow;
 	private JTextField textAns_POW;
-	private JTextField textEner;
-	private JTextField textAns_Ene;
+	private JTextField textEnergy;
+	private JTextField textAns_Ener;
 	private JTextField textPress;
 	private JTextField textAns_Press;
 
@@ -349,10 +349,10 @@ public class UnitConverter {
 		lblNewLabel_1_2_1.setBounds(375, 262, 98, 17);
 		frame.getContentPane().add(lblNewLabel_1_2_1);
 		
-		textEner = new JTextField();
-		textEner.setColumns(10);
-		textEner.setBounds(409, 304, 64, 19);
-		frame.getContentPane().add(textEner);
+		textEnergy = new JTextField();
+		textEnergy.setColumns(10);
+		textEnergy.setBounds(409, 304, 64, 19);
+		frame.getContentPane().add(textEnergy);
 		
 		JComboBox comboInput_EN = new JComboBox();
 		comboInput_EN.setModel(new DefaultComboBoxModel(new String[] {"J", "kgf.m", "cal"}));
@@ -378,10 +378,10 @@ public class UnitConverter {
 		comboOutput_EN.setBounds(409, 357, 64, 21);
 		frame.getContentPane().add(comboOutput_EN);
 		
-		textAns_Ene = new JTextField();
-		textAns_Ene.setColumns(10);
-		textAns_Ene.setBounds(409, 388, 64, 19);
-		frame.getContentPane().add(textAns_Ene);
+		textAns_Ener = new JTextField();
+		textAns_Ener.setColumns(10);
+		textAns_Ener.setBounds(409, 388, 64, 19);
+		frame.getContentPane().add(textAns_Ener);
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Pressure");
 		lblNewLabel_1_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -1011,9 +1011,7 @@ public class UnitConverter {
 					ans_Power=val_POW*kWThp;
 					textAns_POW.setText(String.valueOf(ans_Power));
 				}
-				
-				
-				
+					
 				
 			}
 		});
@@ -1022,13 +1020,198 @@ public class UnitConverter {
 		btnPow.setBounds(181, 387, 39, 21);
 		frame.getContentPane().add(btnPow);
 		
-		JButton btnEnerg = new JButton(">");
-		btnEnerg.setForeground(Color.BLACK);
-		btnEnerg.setBackground(Color.LIGHT_GRAY);
-		btnEnerg.setBounds(351, 387, 39, 21);
-		frame.getContentPane().add(btnEnerg);
+		/** Energy Conversion --------------------------------------> */
+		JButton btnEnergy = new JButton(">");
+		btnEnergy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(comboInput_EN.getSelectedItem().toString()=="J" && comboOutput_EN.getSelectedItem().toString()=="J") {
+					double val_EN =ExpNumEnergy();
+					ans_Ener=val_EN;
+					textAns_Ener.setText(String.valueOf(ans_Ener));
+				}
+				
+				if(comboInput_EN.getSelectedItem().toString()=="kgf.m" && comboOutput_EN.getSelectedItem().toString()=="kgf.m") {
+					double val_EN =ExpNumEnergy();
+					ans_Ener=val_EN;
+					textAns_Ener.setText(String.valueOf(ans_Ener));
+					}
+				if(comboInput_EN.getSelectedItem().toString()=="cal" && comboOutput_EN.getSelectedItem().toString()=="cal") {
+					double val_EN =ExpNumEnergy();
+					ans_Ener=val_EN;
+					textAns_Ener.setText(String.valueOf(ans_Ener));
+				}
+				if(comboInput_EN.getSelectedItem().toString()=="J" && comboOutput_EN.getSelectedItem().toString()=="kgf.m") {
+					double val_EN =ExpNumEnergy();
+					ans_Ener=val_EN/kgf_mTJ;
+					textAns_Ener.setText(String.valueOf(ans_Ener));
+				}
+				if(comboInput_EN.getSelectedItem().toString()=="kgf.m" && comboOutput_EN.getSelectedItem().toString()=="J") {
+					double val_EN =ExpNumEnergy();
+					ans_Ener=val_EN*kgf_mTJ;
+					textAns_Ener.setText(String.valueOf(ans_Ener));
+				}
+				if(comboInput_EN.getSelectedItem().toString()=="cal" && comboOutput_EN.getSelectedItem().toString()=="J") {
+					double val_EN =ExpNumEnergy();
+					ans_Ener=val_EN*calTJ;
+					textAns_Ener.setText(String.valueOf(ans_Ener));
+				}
+				if(comboInput_EN.getSelectedItem().toString()=="J" && comboOutput_EN.getSelectedItem().toString()=="cal") {
+					double val_EN =ExpNumEnergy();
+					ans_Ener=val_EN/calTJ;
+					textAns_Ener.setText(String.valueOf(ans_Ener));
+				}
+				if(comboInput_EN.getSelectedItem().toString()=="kgf.m" && comboOutput_EN.getSelectedItem().toString()=="cal") {
+					double val_EN =ExpNumEnergy();
+					ans_Ener=val_EN*kgf_mTcal;
+					textAns_Ener.setText(String.valueOf(ans_Ener));
+				}
+				if(comboInput_EN.getSelectedItem().toString()=="cal" && comboOutput_EN.getSelectedItem().toString()=="kgf.m") {
+					double val_EN =ExpNumEnergy();
+					ans_Ener=val_EN/kgf_mTcal;
+					textAns_Ener.setText(String.valueOf(ans_Ener));
+				}
+						
+			}
+		});
+		btnEnergy.setForeground(Color.BLACK);
+		btnEnergy.setBackground(Color.LIGHT_GRAY);
+		btnEnergy.setBounds(351, 387, 39, 21);
+		frame.getContentPane().add(btnEnergy);
 		
+		/** Pressure Conversion --------------------------------------> */
 		JButton btnPress = new JButton(">");
+		btnPress.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(comboInput_PR.getSelectedItem().toString()=="atm" && comboOutput_PR.getSelectedItem().toString()=="atm") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="Pa" && comboOutput_PR.getSelectedItem().toString()=="Pa") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="mmHg" && comboOutput_PR.getSelectedItem().toString()=="mmHg") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="kgf/cm²" && comboOutput_PR.getSelectedItem().toString()=="kgf/cm²") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="lbf/in²" && comboOutput_PR.getSelectedItem().toString()=="lbf/in²") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="atm" && comboOutput_PR.getSelectedItem().toString()=="Pa") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR*atmTPa;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="Pa" && comboOutput_PR.getSelectedItem().toString()=="atm") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR/atmTPa;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="mmHg" && comboOutput_PR.getSelectedItem().toString()=="atm") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR/atmTmmHg;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="atm" && comboOutput_PR.getSelectedItem().toString()=="mmHg") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR*atmTmmHg;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="atm" && comboOutput_PR.getSelectedItem().toString()=="kgf/cm²") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR*atmTkgf_cm2;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="kgf/cm²" && comboOutput_PR.getSelectedItem().toString()=="atm") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR/atmTkgf_cm2;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="lbf/in²" && comboOutput_PR.getSelectedItem().toString()=="atm") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR/atmTlbf_in2;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="atm" && comboOutput_PR.getSelectedItem().toString()=="lbf/in²") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR*atmTlbf_in2;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="Pa" && comboOutput_PR.getSelectedItem().toString()=="mmHg") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR/mmHgTPa;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="mmHg" && comboOutput_PR.getSelectedItem().toString()=="Pa") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR*mmHgTPa;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="Pa" && comboOutput_PR.getSelectedItem().toString()=="kgf/cm²") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR/kgf_cm2TPa;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="kgf/cm²" && comboOutput_PR.getSelectedItem().toString()=="Pa") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR*kgf_cm2TPa;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="lbf/in²" && comboOutput_PR.getSelectedItem().toString()=="Pa") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR*lbf_in2TPa;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="Pa" && comboOutput_PR.getSelectedItem().toString()=="lbf/in²") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR/lbf_in2TPa;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="kgf/cm²" && comboOutput_PR.getSelectedItem().toString()=="mmHg") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR*kgf_cm2TmmHg;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="mmHg" && comboOutput_PR.getSelectedItem().toString()=="kgf/cm²") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR/kgf_cm2TmmHg;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="mmHg" && comboOutput_PR.getSelectedItem().toString()=="lbf/in²") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR/lbf_in2TmmHg;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="lbf/in²" && comboOutput_PR.getSelectedItem().toString()=="mmHg") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR*lbf_in2TmmHg;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="lbf/in²" && comboOutput_PR.getSelectedItem().toString()=="kgf/cm²") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR*lbf_in2Tkgf_cm2;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				if(comboInput_PR.getSelectedItem().toString()=="kgf/cm²" && comboOutput_PR.getSelectedItem().toString()=="lbf/in²") {
+					double val_PR =ExpNumPressure();
+					ans_Press=val_PR/lbf_in2Tkgf_cm2;
+					textAns_Press.setText(String.valueOf(ans_Press));
+				}
+				
+				
+			}
+		});
 		btnPress.setForeground(Color.BLACK);
 		btnPress.setBackground(Color.LIGHT_GRAY);
 		btnPress.setBounds(181, 563, 39, 21);
@@ -1093,6 +1276,30 @@ public class UnitConverter {
 			JOptionPane.showMessageDialog(null,"Enter valid input!");	
 		}
 		return ans_Power;
+	}
+	
+	/** Energy Conversion Exception Handling>>>>>>>>>>>>>>>>>>>>>> */
+	public double  ExpNumEnergy() {
+		
+		try {
+			ans_Ener=Double.parseDouble(textEnergy.getText());
+			
+		}catch(NumberFormatException e1){
+			JOptionPane.showMessageDialog(null,"Enter valid input!");	
+		}
+		return ans_Ener;
+	}
+	
+	/** Pressure Conversion Exception Handling>>>>>>>>>>>>>>>>>>>>>> */
+	public double  ExpNumPressure() {
+		
+		try {
+			ans_Press=Double.parseDouble(textPress.getText());
+			
+		}catch(NumberFormatException e1){
+			JOptionPane.showMessageDialog(null,"Enter valid input!");	
+		}
+		return ans_Press;
 	}
 	
 }
