@@ -453,7 +453,28 @@ public class ScientificCal {
 							{
 								result = Math.pow(num1, num2);
 								answer = String.format("%.2f", result);;
+<<<<<<< HEAD
+=======
 								textFieldDisplay.setText(answer);
+							}
+							else if (operation == "nPr" && n>r)
+							{
+								
+							int	Ans_nPr = factorial(n) / factorial(n - r); 
+								answer = String.format("%d", Ans_nPr);
+>>>>>>> 4b591dfbf1642addecb7cd7f2e62593578aaf818
+								textFieldDisplay.setText(answer);
+								
+							}
+							else if (operation == "nCr" && n>r)
+							{
+								
+							int	Ans_nCr = factorial(n) / (factorial(r)*(factorial(n - r))); 
+								answer = String.format("%d", Ans_nCr);
+								textFieldDisplay.setText(answer);								
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Syntax Error");
 							}
 							else if (operation == "nPr" && n>r)
 							{
@@ -756,7 +777,11 @@ public class ScientificCal {
 		});
 		
 		
+<<<<<<< HEAD
 		btnStandardDecimalConversion.setFont(new Font("Tahoma", Font.BOLD, 13));
+=======
+		btnStandardDecimalConversion.setFont(new Font("Tahoma", Font.BOLD, 11));
+>>>>>>> 4b591dfbf1642addecb7cd7f2e62593578aaf818
 		btnStandardDecimalConversion.setBackground(new Color(32, 178, 170));
 		btnStandardDecimalConversion.setBounds(297, 111, 68, 28);
 		frmScientificCalculator.getContentPane().add(btnStandardDecimalConversion);
