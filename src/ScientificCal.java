@@ -9,7 +9,10 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -22,6 +25,28 @@ public class ScientificCal {
 	private JTextField textFieldDisplay;
 	
 	double num1 , num2 ,result = 0;
+	int n = (int)num1;
+	int r = (int)num2;
+	int i;
+    int factorial(int n) {
+		int j = 1;
+		for(int i =1; i <= n; i++) {
+			j = j * i;
+		}
+		return j;
+	}
+    
+    long gcd(long a, long b)
+	{
+		if (a == 0)
+			return b;
+		else if (b == 0)
+			return a;
+		if (a < b)
+			return gcd(a, b % a);
+		else
+			return gcd(b, a % b);
+	}
 	String operation ;
 	String  answer;
 	private JTextField textFieldMemory;
@@ -169,8 +194,7 @@ public class ScientificCal {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String value = textFieldDisplay.getText() + btnDecimal.getText();
-					textFieldDisplay.setText(value);
-					
+					textFieldDisplay.setText(value);					
 			}
 				catch(Exception ex){
 					JOptionPane.showMessageDialog(null, "Syntax Error...");
@@ -186,9 +210,14 @@ public class ScientificCal {
 		JButton btnSin = new JButton("Sin");
 		btnSin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
-				ops = Math.sin(ops);
-				textFieldDisplay.setText(String.valueOf(ops));
+				try {
+					double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
+					ops = Math.sin(ops);
+					textFieldDisplay.setText(String.valueOf(ops));
+			    	}
+					catch(Exception ex){
+						JOptionPane.showMessageDialog(null, "Syntax Error...");
+					}				
 			}
 		});
 		btnSin.setBackground(new Color(32, 178, 170));
@@ -199,9 +228,15 @@ public class ScientificCal {
 		JButton btnCos = new JButton("Cos");
 		btnCos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
-				ops = Math.cos(ops);
-				textFieldDisplay.setText(String.valueOf(ops));
+				try {
+					double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
+					ops = Math.cos(ops);
+					textFieldDisplay.setText(String.valueOf(ops));
+			    	}
+					catch(Exception ex){
+						JOptionPane.showMessageDialog(null, "Syntax Error...");
+					}
+				
 			}
 		});
 		btnCos.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -236,7 +271,7 @@ public class ScientificCal {
 			}
 		});
 		btnDelete.setBackground(new Color(0, 255, 255));
-		btnDelete.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnDelete.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnDelete.setBounds(302, 386, 63, 28);
 		frmScientificCalculator.getContentPane().add(btnDelete);
 		
@@ -322,7 +357,6 @@ public class ScientificCal {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					num1=Double.parseDouble(textFieldDisplay.getText());
-					System.out.println(num1);
 					textFieldDisplay.setText("");
 					operation = "+";
 				}
@@ -341,7 +375,6 @@ public class ScientificCal {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					num1=Double.parseDouble(textFieldDisplay.getText());
-					System.out.println(num1);
 					textFieldDisplay.setText("");
 					operation = "-";
 				}
@@ -387,15 +420,13 @@ public class ScientificCal {
 						try {	
 							//String answer;
 							num2 = Double.parseDouble(textFieldDisplay.getText());
-							System.out.println(num2);
+							r = Integer.parseInt(textFieldDisplay.getText());
 							if (operation == "+")
 							{
 								
 								result = num1 + num2; 
 								answer = String.format("%.2f", result);
-								System.out.println(answer);
 								textFieldDisplay.setText(answer);
-								operation = "+";
 							}
 							
 							else if (operation == "-")
@@ -403,15 +434,12 @@ public class ScientificCal {
 								
 								result = num1 - num2; 
 								answer = String.format("%.2f", result);
-								System.out.println(answer);
 								textFieldDisplay.setText(answer);
 							}
-							else if (operation == "*")
+							else if (operation == "×")
 							{
-								
 								result = num1 * num2; 
 								answer = String.format("%.2f", result);
-								System.out.println(answer);
 								textFieldDisplay.setText(answer);
 							}
 							else if (operation == "/")
@@ -419,15 +447,31 @@ public class ScientificCal {
 								
 								result = num1 / num2; 
 								answer = String.format("%.2f", result);
-								System.out.println(answer);
 								textFieldDisplay.setText(answer);
 							}
 							else if (operation == "X^Y")
 							{
 								result = Math.pow(num1, num2);
-								answer = String.format("%.2f", result);
-								System.out.println(answer);
+								answer = String.format("%.2f", result);;
 								textFieldDisplay.setText(answer);
+							}
+							else if (operation == "nPr" && n>r)
+							{
+								
+							int	Ans_nPr = factorial(n) / factorial(n - r); 
+								answer = String.format("%d", Ans_nPr);
+								textFieldDisplay.setText(answer);
+								
+							}
+							else if (operation == "nCr" && n>r)
+							{
+								
+							int	Ans_nCr = factorial(n) / (factorial(r)*(factorial(n - r))); 
+								answer = String.format("%d", Ans_nCr);
+								textFieldDisplay.setText(answer);								
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Syntax Error");
 							}
 						}
 							catch(Exception ex){
@@ -440,11 +484,19 @@ public class ScientificCal {
 		btnEqual.setBounds(302, 425, 63, 28);
 		frmScientificCalculator.getContentPane().add(btnEqual);
 		
-		JButton btnShift = new JButton("SHIFT");
-		btnShift.setBackground(new Color(255, 215, 0));
-		btnShift.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnShift.setBounds(286, 72, 80, 28);
-		frmScientificCalculator.getContentPane().add(btnShift);
+		JButton btnPI = new JButton("\u03C0");
+		btnPI.setBackground(new Color(255, 215, 0));
+		btnPI.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnPI.setBounds(286, 72, 80, 28);
+		frmScientificCalculator.getContentPane().add(btnPI);
+		btnPI.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				String value = textFieldDisplay.getText() + btnPI.getText();
+				textFieldDisplay.setText(value);
+			}
+		});
+
 		
 		JRadioButton rdbtnOn = new JRadioButton("ON");
 		rdbtnOn.setBackground(new Color(188, 143, 143));
@@ -458,7 +510,7 @@ public class ScientificCal {
 		rdbtnOff.setBounds(100, 72, 80, 28);
 		frmScientificCalculator.getContentPane().add(rdbtnOff);
 		
-		JButton btnLn = new JButton("Ln");
+		JButton btnLn = new JButton("ln");
 		btnLn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
@@ -480,7 +532,7 @@ public class ScientificCal {
 		});
 		btnOpenBracket.setBackground(new Color(32, 178, 170));
 		btnOpenBracket.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnOpenBracket.setBounds(132, 268, 57, 28);
+		btnOpenBracket.setBounds(132, 268, 52, 28);
 		frmScientificCalculator.getContentPane().add(btnOpenBracket);
 		
 		JButton btnCloseBracket = new JButton(")");
@@ -492,55 +544,88 @@ public class ScientificCal {
 		});
 		btnCloseBracket.setBackground(new Color(32, 178, 170));
 		btnCloseBracket.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnCloseBracket.setBounds(193, 268, 57, 28);
+		btnCloseBracket.setBounds(188, 268, 52, 28);
 		frmScientificCalculator.getContentPane().add(btnCloseBracket);
 		
 		JButton btnTan = new JButton("Tan");
 		btnTan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
-				ops = Math.tan(ops);
-				textFieldDisplay.setText(String.valueOf(ops));
+				try {
+					double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
+					ops = Math.tan(ops);
+					textFieldDisplay.setText(String.valueOf(ops));
+					}
+					catch(Exception ex){
+						JOptionPane.showMessageDialog(null, "Syntax Error...");
+					}				
 			}
 		});
 		btnTan.setBackground(new Color(32, 178, 170));
 		btnTan.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnTan.setBounds(132, 190, 57, 28);
+		btnTan.setBounds(132, 190, 62, 28);
 		frmScientificCalculator.getContentPane().add(btnTan);
 		
 		JButton btnSquareroot = new JButton("\u221A");
 		btnSquareroot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
-				ops = Math.sqrt(ops);
-				textFieldDisplay.setText(String.valueOf(ops));
+				try {
+					double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
+					ops = Math.sqrt(ops);
+					textFieldDisplay.setText(String.valueOf(ops));
+					}
+					catch(Exception ex){
+						JOptionPane.showMessageDialog(null, "Syntax Error...");
+					}					
 			}
 		});
 		btnSquareroot.setBackground(new Color(32, 178, 170));
-		btnSquareroot.setBounds(193, 190, 57, 28);
+		btnSquareroot.setBounds(199, 190, 45, 28);
 		frmScientificCalculator.getContentPane().add(btnSquareroot);
 		
 		JButton btn_nPr = new JButton("nPr");
 		btn_nPr.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					n =Integer.parseInt(textFieldDisplay.getText());
+					textFieldDisplay.setText("");
+					operation = "nPr";
+					
+					}
+					catch(Exception ex){
+						JOptionPane.showMessageDialog(null, "Syntax Error...");
+					}
 			}
 		});
 		btn_nPr.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btn_nPr.setBackground(new Color(32, 178, 170));
-		btn_nPr.setBounds(254, 190, 57, 28);
+		btn_nPr.setBounds(248, 190, 57, 28);
 		frmScientificCalculator.getContentPane().add(btn_nPr);
 		
 		JButton btn_nCr = new JButton("nCr");
+		btn_nCr.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					n =Integer.parseInt(textFieldDisplay.getText());
+					textFieldDisplay.setText("");
+					operation = "nCr";
+					
+					}
+					catch(Exception ex){
+						JOptionPane.showMessageDialog(null, "Syntax Error...");
+					}
+			}
+		});
 		btn_nCr.setBackground(new Color(32, 178, 170));
 		btn_nCr.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btn_nCr.setBounds(313, 190, 57, 28);
+		btn_nCr.setBounds(308, 190, 57, 28);
 		frmScientificCalculator.getContentPane().add(btn_nCr);
 		
-		JButton btnAlpha = new JButton("ALPHA");
+		JButton btnAlpha = new JButton("e");
 		btnAlpha.setBackground(new Color(255, 255, 0));
-		btnAlpha.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnAlpha.setBounds(196, 73, 80, 28);
+		btnAlpha.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnAlpha.setBounds(196, 72, 80, 28);
 		frmScientificCalculator.getContentPane().add(btnAlpha);
+
 		
 		JButton btnCalc = new JButton("CALC");
 		btnCalc.addActionListener(new ActionListener() {
@@ -548,15 +633,27 @@ public class ScientificCal {
 			}
 		});
 		btnCalc.setBackground(new Color(32, 178, 170));
-		btnCalc.setFont(new Font("Tahoma", Font.BOLD, 8));
-		btnCalc.setBounds(254, 111, 57, 28);
+		btnCalc.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnCalc.setBounds(215, 111, 78, 28);
 		frmScientificCalculator.getContentPane().add(btnCalc);
 		
-		JButton btnIntegration = new JButton("\u222Bdx");
-		btnIntegration.setBackground(new Color(32, 178, 170));
-		btnIntegration.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnIntegration.setBounds(254, 268, 57, 28);
-		frmScientificCalculator.getContentPane().add(btnIntegration);
+		JButton btn_RadToDeg = new JButton("R-D");
+		btn_RadToDeg.setBackground(new Color(32, 178, 170));
+		btn_RadToDeg.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btn_RadToDeg.setBounds(244, 268, 57, 28);
+		frmScientificCalculator.getContentPane().add(btn_RadToDeg);
+		btn_RadToDeg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					double RadiansVal = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
+					RadiansVal = Math.toDegrees(RadiansVal);
+					textFieldDisplay.setText(String.valueOf(RadiansVal));
+				}
+				catch(Exception ex){
+					JOptionPane.showMessageDialog(null, "Syntax Error...");
+				}
+			}
+		});
 		
 		JButton btnMemoryClear = new JButton("MC");
 		btnMemoryClear.addActionListener(new ActionListener() {
@@ -566,79 +663,161 @@ public class ScientificCal {
 		});
 		btnMemoryClear.setBackground(new Color(32, 178, 170));
 		btnMemoryClear.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnMemoryClear.setBounds(313, 268, 57, 28);
+		btnMemoryClear.setBounds(303, 268, 62, 28);
 		frmScientificCalculator.getContentPane().add(btnMemoryClear);
 		
-		JButton btnLeft = new JButton("\u2190");
-		btnLeft.setBackground(new Color(32, 178, 170));
-		btnLeft.setBounds(10, 111, 57, 28);
-		frmScientificCalculator.getContentPane().add(btnLeft);
+		JButton btn_aSin = new JButton("aSin");
+		btn_aSin.setBackground(new Color(32, 178, 170));
+		btn_aSin.setBounds(10, 111, 62, 28);
+		btn_aSin.setFont(new Font("Tahoma", Font.BOLD, 13));
+		frmScientificCalculator.getContentPane().add(btn_aSin);
+		btn_aSin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					double val1 = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
+					val1 = Math.asin(val1);
+					textFieldDisplay.setText(String.valueOf(val1));
+				}
+				    catch(Exception ex){
+					JOptionPane.showMessageDialog(null, "Syntax Error...");
+				}
+			}
+		});
 		
-		JButton btnUp = new JButton("\u2191");
-		btnUp.setBackground(new Color(32, 178, 170));
-		btnUp.setBounds(71, 111, 57, 28);
-		frmScientificCalculator.getContentPane().add(btnUp);
+		JButton btn_aCos = new JButton("aCos");
+		btn_aCos.setBackground(new Color(32, 178, 170));
+		btn_aCos.setBounds(76, 111, 65, 28);
+		btn_aCos.setFont(new Font("Tahoma", Font.BOLD, 13));
+		frmScientificCalculator.getContentPane().add(btn_aCos);
+		btn_aCos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					double val2 = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
+					val2 = Math.acos(val2);
+					textFieldDisplay.setText(String.valueOf(val2));
+				}
+				catch(Exception ex){
+					JOptionPane.showMessageDialog(null, "Syntax Error...");
+				}
+			}
+		});
 		
-		JButton btnRight = new JButton("\u2192");
-		btnRight.setBackground(new Color(32, 178, 170));
-		btnRight.setBounds(132, 111, 57, 28);
-		frmScientificCalculator.getContentPane().add(btnRight);
-		
-		JButton btnDown = new JButton("\u2193");
-		btnDown.setBackground(new Color(32, 178, 170));
-		btnDown.setBounds(193, 111, 57, 28);
-		frmScientificCalculator.getContentPane().add(btnDown);
+		JButton btn_aTan = new JButton("aTan");
+		btn_aTan.setBackground(new Color(32, 178, 170));
+		btn_aTan.setBounds(144, 111, 67, 28);
+		btn_aTan.setFont(new Font("Tahoma", Font.BOLD, 13));
+		frmScientificCalculator.getContentPane().add(btn_aTan);
+		btn_aTan.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					double val3 = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
+					val3 = Math.atan(val3);
+					textFieldDisplay.setText(String.valueOf(val3));
+				}
+				catch(Exception ex){
+					JOptionPane.showMessageDialog(null, "Syntax Error...");
+				}
+			}
+		});
+
 		
 		JButton btnStandardDecimalConversion = new JButton("S-D");
-		btnStandardDecimalConversion.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnStandardDecimalConversion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
+
+						// Fetch integral value of the decimal
+						double intVal = Math.floor(ops);
+
+						// Fetch fractional part of the decimal
+						double fVal = ops - intVal;
+
+						// Consider precision value to
+						// convert fractional part to
+						// integral equivalent
+						final long pVal = 1000000000;
+
+						long gcdVal = gcd(Math.round(fVal * pVal), pVal);
+
+						// Calculate num and deno
+						long num = Math.round(fVal * pVal) / gcdVal;
+						long deno = pVal / gcdVal;
+
+					String  opa =(long) (intVal * deno) + num + "/" + deno ;
+					answer = String.format("%s", opa);
+					textFieldDisplay.setText(answer);
+					    }
+					catch(Exception ex){
+						JOptionPane.showMessageDialog(null, "Syntax Error...");
+	    }
+				
+			}
+		});
+		
+		
+		btnStandardDecimalConversion.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnStandardDecimalConversion.setBackground(new Color(32, 178, 170));
-		btnStandardDecimalConversion.setBounds(313, 111, 57, 28);
+		btnStandardDecimalConversion.setBounds(297, 111, 68, 28);
 		frmScientificCalculator.getContentPane().add(btnStandardDecimalConversion);
 		
-		JButton btnSinInverse = new JButton("Sin^-1");
-		btnSinInverse.addActionListener(new ActionListener() {
+		JButton btnSinh = new JButton("Sinh");
+		btnSinh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
 				ops = Math.sinh(ops);
 				textFieldDisplay.setText(String.valueOf(ops));
 			}
 		});
-		btnSinInverse.setBackground(new Color(32, 178, 170));
-		btnSinInverse.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnSinInverse.setBounds(10, 229, 80, 28);
-		frmScientificCalculator.getContentPane().add(btnSinInverse);
+		btnSinh.setBackground(new Color(32, 178, 170));
+		btnSinh.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnSinh.setBounds(10, 229, 80, 28);
+		frmScientificCalculator.getContentPane().add(btnSinh);
 		
-		JButton btnCosInverse = new JButton("Cos^-1");
-		btnCosInverse.addActionListener(new ActionListener() {
+		JButton btnCosh = new JButton("Cosh");
+		btnCosh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
 				ops = Math.cosh(ops);
 				textFieldDisplay.setText(String.valueOf(ops));
 			}
 		});
-		btnCosInverse.setBackground(new Color(32, 178, 170));
-		btnCosInverse.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCosInverse.setBounds(100, 229, 80, 28);
-		frmScientificCalculator.getContentPane().add(btnCosInverse);
-		
-		JButton btnTanInverse = new JButton("Tan^-1");
-		btnTanInverse.addActionListener(new ActionListener() {
+		btnCosh.setBackground(new Color(32, 178, 170));
+		btnCosh.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCosh.setBounds(100, 229, 80, 28);
+		frmScientificCalculator.getContentPane().add(btnCosh);
+
+		JButton btnTanh = new JButton("Tanh");
+		btnTanh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
 				ops = Math.tanh(ops);
 				textFieldDisplay.setText(String.valueOf(ops));
 			}
 		});
-		btnTanInverse.setBackground(new Color(32, 178, 170));
-		btnTanInverse.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnTanInverse.setBounds(192, 229, 80, 28);
-		frmScientificCalculator.getContentPane().add(btnTanInverse);
+		btnTanh.setBackground(new Color(32, 178, 170));
+		btnTanh.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnTanh.setBounds(192, 229, 80, 28);
+		frmScientificCalculator.getContentPane().add(btnTanh);
 		
-		JButton btnDifferenciation = new JButton("dy/dx");
-		btnDifferenciation.setBackground(new Color(32, 178, 170));
-		btnDifferenciation.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnDifferenciation.setBounds(285, 229, 81, 28);
-		frmScientificCalculator.getContentPane().add(btnDifferenciation);
+		JButton btnFactorial = new JButton("n!");
+		btnFactorial.setBackground(new Color(32, 178, 170));
+		btnFactorial.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnFactorial.setBounds(285, 229, 81, 28);
+		frmScientificCalculator.getContentPane().add(btnFactorial);
+		btnFactorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				double a =(Double.parseDouble(textFieldDisplay.getText()));
+				double f=1;
+				while(a!=0)
+				{
+					f=f*a;
+					a--;
+				}
+				textFieldDisplay.setText("");
+				textFieldDisplay.setText(textFieldDisplay.getText()+f);
+			}
+		});
 		
 		JButton btnLogaX = new JButton("Log_a X");
 		btnLogaX.setBackground(new Color(32, 178, 170));
@@ -649,9 +828,14 @@ public class ScientificCal {
 		JButton btnPower2toX = new JButton("x^2");
 		btnPower2toX.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
-				ops =(ops * ops);
-				textFieldDisplay.setText(String.valueOf(ops));
+				try {
+					double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
+					ops =(ops * ops);
+					textFieldDisplay.setText(String.valueOf(ops));
+					}
+					catch(Exception ex){
+						JOptionPane.showMessageDialog(null, "Syntax Error...");
+					}				
 			}
 		});
 		btnPower2toX.setBackground(new Color(32, 178, 170));
@@ -662,14 +846,15 @@ public class ScientificCal {
 		JButton btnPowerNtoX = new JButton("X^Y");
 		btnPowerNtoX.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
-				//ops = Math.pow(ops * ops);
-				//textFieldDisplay.setText(String.valueOf(ops));
-				
-				num1=Double.parseDouble(textFieldDisplay.getText());
-				System.out.println(num1);
-				textFieldDisplay.setText("");
-				operation = "X^Y";
+				try {
+					num1 = Double.parseDouble(textFieldDisplay.getText());
+					textFieldDisplay.setText( "" );
+				 	operation = "X^Y";
+					
+					}
+					catch(Exception ex){
+						JOptionPane.showMessageDialog(null, "Syntax Error...");
+					}
 			}
 		});
 		btnPowerNtoX.setBackground(new Color(32, 178, 170));
@@ -680,9 +865,14 @@ public class ScientificCal {
 		JButton btnPowerMinus1toX = new JButton("1/X");
 		btnPowerMinus1toX.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
-				ops = 1/(ops);
-				textFieldDisplay.setText(String.valueOf(ops));
+				try {
+					double ops = Double.parseDouble(String.valueOf(textFieldDisplay.getText()));
+					ops = (1/(ops));
+					textFieldDisplay.setText(String.valueOf(ops));
+					}
+					catch(Exception ex){
+						JOptionPane.showMessageDialog(null, "Syntax Error...");
+					}					
 			}
 		});
 		btnPowerMinus1toX.setBackground(new Color(32, 178, 170));
@@ -723,6 +913,16 @@ public class ScientificCal {
 		
 		JMenuItem MenuItemUnitConverter = new JMenuItem("Unit Converter");
 		Menu.add(MenuItemUnitConverter);
+
+		JMenuItem MenuItemPhysicalConstant = new JMenuItem("Physical Constant");
+		Menu.add(MenuItemPhysicalConstant);
+		MenuItemPhysicalConstant.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmScientificCalculator.setTitle("Physical Constant");
+				frmScientificCalculator.setBounds(100, 100, 390, 517);
+				textFieldDisplay.setBounds(9, 25, 356, 45);
+			}
+		});
 		
 		JMenuItem MenuItemExit = new JMenuItem("Exit");
 		MenuItemExit.addActionListener(new ActionListener() {
