@@ -8,14 +8,19 @@ import javax.swing.JMenu;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 
 public class UnitConverter {
 	
@@ -118,6 +123,8 @@ public class UnitConverter {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Unit Converter");
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(UnitConverter.class.getResource("/convert.png")));
 		frame.getContentPane().setBackground(SystemColor.activeCaption);
 		frame.setForeground(Color.WHITE);
 		frame.setBounds(100, 100, 529, 652);
@@ -145,7 +152,34 @@ public class UnitConverter {
 				System.exit(0);
 			}
 		});
-		mnNewMenu.add(mntmNewMenuItem_2);
+		//mnNewMenu.add(mntmNewMenuItem_2);
+		
+		JMenu mnNewMenu_1 = new JMenu("Help");
+		menuBar.add(mnNewMenu_1);
+		
+		
+		/**
+		 * Opening ReadMe file.
+		 */
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Read Me");
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			    try {
+			        Desktop desktop = null;
+			        if (Desktop.isDesktopSupported()) {
+			          desktop = Desktop.getDesktop();
+			        }
+
+			         desktop.open(new File("src/Unit Converter.pdf"));
+			         } catch (IOException ioe) {
+			        	 ioe.printStackTrace();
+			        	 }
+			}
+			
+			
+			
+		});
+		mnNewMenu_1.add(mntmNewMenuItem_3);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Unit Converter");
@@ -1305,5 +1339,4 @@ public class UnitConverter {
 		}
 		return ans_Press;
 	}
-	
 }
