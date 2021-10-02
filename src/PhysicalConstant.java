@@ -1,13 +1,47 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class PhysicalConstant {
 
 
     private JFrame PhysicalConstanFframe;
     private JTextField textFieldDisplay;
+
+
+    double num1 , num2 ,result = 0;
+    int n = (int)num1;
+    int r = (int)num2;
+    int i;
+    int factorial(int n) {
+        int j = 1;
+        for(int i =1; i <= n; i++) {
+            j = j * i;
+        }
+        return j;
+    }
+
+    long gcd(long a, long b)
+    {
+        if (a == 0)
+            return b;
+        else if (b == 0)
+            return a;
+        if (a < b)
+            return gcd(a, b % a);
+        else
+            return gcd(b, a % b);
+    }
+    String operation ;
+    String  answer;
+    private JTextField textFieldMemory;
     /**
      * Launch the application.
      */
@@ -45,14 +79,29 @@ public class PhysicalConstant {
 
         textFieldDisplay = new JTextField();
         textFieldDisplay.setHorizontalAlignment(SwingConstants.RIGHT);
-        textFieldDisplay.setBounds(10, 10, 346, 45);
+        textFieldDisplay.setBounds(10, 10, 265, 45);
         PhysicalConstanFframe.getContentPane().add(textFieldDisplay);
         textFieldDisplay.setColumns(10);
 
-        JButton btn1 = new JButton("g");
+        JButton btnAC = new JButton("AC");
+        btnAC.setBackground(new Color(0, 255, 255));
+        btnAC.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                textFieldDisplay.setText("");
+                num1 = 0.0;
+                num2 = 0.0;
+                operation ="";
+            }
+        });
+        btnAC.setFont(new Font("Tahoma", Font.BOLD, 15));
+        btnAC.setBounds(280, 10, 60, 45);
+        PhysicalConstanFframe.getContentPane().add(btnAC);
+
+        JButton btn1 = new JButton("mp");
+        double mp = 11.672621777E-27 ;
         btn1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btn1.getText();
+                String value = textFieldDisplay.getText() + mp;
                 textFieldDisplay.setText(value);
             }
         });
@@ -61,10 +110,11 @@ public class PhysicalConstant {
         btn1.setBounds(20, 70, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btn1);
 
-        JButton btn1a = new JButton("mp");
+        JButton btn1a = new JButton("mn");
+        double mn = 1.674927351E-27 ;
         btn1a.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btn1a.getText();
+                String value = textFieldDisplay.getText() + mn;
                 textFieldDisplay.setText(value);
             }
         });
@@ -73,10 +123,11 @@ public class PhysicalConstant {
         btn1a.setBounds(85, 70, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btn1a);
 
-        JButton btn1b = new JButton("mn");
+        JButton btn1b = new JButton("me");
+        double me = 9.10938291E-31 ;
         btn1b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btn1b.getText();
+                String value = textFieldDisplay.getText() + me;
                 textFieldDisplay.setText(value);
             }
         });
@@ -85,10 +136,11 @@ public class PhysicalConstant {
         btn1b.setBounds(150, 70, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btn1b);
 
-        JButton btn1c = new JButton("me");
+        JButton btn1c = new JButton("mu");
+        double mu = 1.883531475E-28;
         btn1c.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btn1c.getText();
+                String value = textFieldDisplay.getText() + mu;
                 textFieldDisplay.setText(value);
             }
         });
@@ -97,10 +149,11 @@ public class PhysicalConstant {
         btn1c.setBounds(215, 70, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btn1c);
 
-        JButton btn1d = new JButton("um");
+        JButton btn1d = new JButton("a0");
+        double a0 = 5.291772109E-11 ;
         btn1d.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btn1d.getText();
+                String value = textFieldDisplay.getText() + a0;
                 textFieldDisplay.setText(value);
             }
         });
@@ -111,10 +164,11 @@ public class PhysicalConstant {
 
 
 
-        JButton btn2 = new JButton("a0");
+        JButton btn2 = new JButton("h");
+        double h = 6.62606957E-34 ;
         btn2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btn2.getText();
+                String value = textFieldDisplay.getText() +h;
                 textFieldDisplay.setText(value);
             }
         });
@@ -123,10 +177,11 @@ public class PhysicalConstant {
         btn2.setBounds(20, 110, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btn2);
 
-        JButton btna2 = new JButton("h");
+        JButton btna2 = new JButton("uN");
+        double uN = 6.62606957E-34 ;
         btna2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btna2.getText();
+                String value = textFieldDisplay.getText() + uN;
                 textFieldDisplay.setText(value);
             }
         });
@@ -135,10 +190,11 @@ public class PhysicalConstant {
         btna2.setBounds(85, 110, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btna2);
 
-        JButton btnb2 = new JButton("uN");
+        JButton btnb2 = new JButton("uB");
+        double uB = 9.27400968E-24 ;
         btnb2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnb2.getText();
+                String value = textFieldDisplay.getText() + uB;
                 textFieldDisplay.setText(value);
             }
         });
@@ -147,10 +203,11 @@ public class PhysicalConstant {
         btnb2.setBounds(150, 110, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnb2);
 
-        JButton btnc2 = new JButton("uB");
+        JButton btnc2 = new JButton("Dc");
+        double Dc = 1.054571726E-34 ;
         btnc2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnc2.getText();
+                String value = textFieldDisplay.getText() + Dc;
                 textFieldDisplay.setText(value);
             }
         });
@@ -159,10 +216,11 @@ public class PhysicalConstant {
         btnc2.setBounds(215, 110, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnc2);
 
-        JButton btnd2 = new JButton("re");
+        JButton btnd2 = new JButton("a");
+        double a = 7.29735257E-3 ;
         btnd2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnd2.getText();
+                String value = textFieldDisplay.getText() + a;
                 textFieldDisplay.setText(value);
             }
         });
@@ -171,7 +229,8 @@ public class PhysicalConstant {
         btnd2.setBounds(280, 110, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnd2);
 
-        JButton btn3 = new JButton("atm");
+        JButton btn3 = new JButton("re");
+        double re = 2.817940327E-15 ;
         btn3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String value = textFieldDisplay.getText() + btn2.getText();
@@ -183,7 +242,8 @@ public class PhysicalConstant {
         btn3.setBounds(20, 150, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btn3);
 
-        JButton btna3 = new JButton("bar");
+        JButton btna3 = new JButton("CW");
+        double CW = 2.426310239E-12 ;
         btna3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String value = textFieldDisplay.getText() + btna3.getText();
@@ -195,47 +255,51 @@ public class PhysicalConstant {
         btna3.setBounds(85, 150, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btna3);
 
-        JButton btnb3 = new JButton("G");
+        JButton btnb3 = new JButton("GRP");
+        double GRP = 267522200.5 ;
         btnb3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnb3.getText();
+                String value = textFieldDisplay.getText() + GRP;
                 textFieldDisplay.setText(value);
             }
         });
         btnb3.setBackground(new Color(135, 206, 250));
-        btnb3.setFont(new Font("Tahoma", Font.BOLD, 15));
+        btnb3.setFont(new Font("Tahoma", Font.BOLD, 12));
         btnb3.setBounds(150, 150, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnb3);
 
-        JButton btnc3 = new JButton("t");
+        JButton btnc3 = new JButton("CWp");
+        double CWp = 1.321409856E-15 ;
         btnc3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnc3.getText();
+                String value = textFieldDisplay.getText() + CWp;
                 textFieldDisplay.setText(value);
             }
         });
         btnc3.setBackground(new Color(135, 206, 250));
-        btnc3.setFont(new Font("Tahoma", Font.BOLD, 15));
+        btnc3.setFont(new Font("Tahoma", Font.BOLD, 11));
         btnc3.setBounds(215, 150, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnc3);
 
-        JButton btnd3 = new JButton("u0");
+        JButton btnd3 = new JButton("CWn");
+        double CWn = 1.319590907 ;
         btnd3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnd3.getText();
+                String value = textFieldDisplay.getText() + CWn;
                 textFieldDisplay.setText(value);
             }
         });
         btnd3.setBackground(new Color(135, 206, 250));
-        btnd3.setFont(new Font("Tahoma", Font.BOLD, 15));
+        btnd3.setFont(new Font("Tahoma", Font.BOLD, 11));
         btnd3.setBounds(280, 150, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnd3);
 
 
-        JButton btn4 = new JButton("e0");
+        JButton btn4 = new JButton("C");
+        double C = 3E8 ;
         btn4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btn4.getText();
+                String value = textFieldDisplay.getText() + C;
                 textFieldDisplay.setText(value);
             }
         });
@@ -244,10 +308,11 @@ public class PhysicalConstant {
         btn4.setBounds(20, 190, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btn4);
 
-        JButton btna4 = new JButton("z0");
+        JButton btna4 = new JButton("u");
+        double u = 1.660538921E-27 ;
         btna4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btna4.getText();
+                String value = textFieldDisplay.getText() + u;
                 textFieldDisplay.setText(value);
             }
         });
@@ -256,10 +321,11 @@ public class PhysicalConstant {
         btna4.setBounds(85, 190, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btna4);
 
-        JButton btnb4 = new JButton("F");
+        JButton btnb4 = new JButton("up");
+        double up = 1.410606743E-26 ;
         btnb4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnb4.getText();
+                String value = textFieldDisplay.getText() + up;
                 textFieldDisplay.setText(value);
             }
         });
@@ -268,10 +334,11 @@ public class PhysicalConstant {
         btnb4.setBounds(150, 190, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnb4);
 
-        JButton btnc4 = new JButton("up");
+        JButton btnc4 = new JButton("ue");
+        double ue = -9.2847643E-24 ;
         btnc4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnc4.getText();
+                String value = textFieldDisplay.getText() + ue;
                 textFieldDisplay.setText(value);
             }
         });
@@ -280,10 +347,11 @@ public class PhysicalConstant {
         btnc4.setBounds(215, 190, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnc4);
 
-        JButton btnd4 = new JButton("ue");
+        JButton btnd4 = new JButton("un");
+        double un = -9.6623647E-27 ;
         btnd4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnd4.getText();
+                String value = textFieldDisplay.getText() +un;
                 textFieldDisplay.setText(value);
             }
         });
@@ -293,10 +361,11 @@ public class PhysicalConstant {
         PhysicalConstanFframe.getContentPane().add(btnd4);
 
 
-        JButton btn5 = new JButton("un");
+        JButton btn5 = new JButton("uu");
+        double uu = -4.49044807E-26 ;
         btn5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btn5.getText();
+                String value = textFieldDisplay.getText() + uu;
                 textFieldDisplay.setText(value);
             }
         });
@@ -305,10 +374,11 @@ public class PhysicalConstant {
         btn5.setBounds(20, 230, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btn5);
 
-        JButton btna5 = new JButton("uu");
+        JButton btna5 = new JButton("F");
+        double F= 96485.3365 ;
         btna5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btna5.getText();
+                String value = textFieldDisplay.getText() + F;
                 textFieldDisplay.setText(value);
             }
         });
@@ -318,9 +388,10 @@ public class PhysicalConstant {
         PhysicalConstanFframe.getContentPane().add(btna5);
 
         JButton btnb5 = new JButton("e");
+        double e = 1.602176565E-19 ;
         btnb5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnb5.getText();
+                String value = textFieldDisplay.getText() +e;
                 textFieldDisplay.setText(value);
             }
         });
@@ -329,10 +400,11 @@ public class PhysicalConstant {
         btnb5.setBounds(150, 230, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnb5);
 
-        JButton btnc5 = new JButton("ste");
+        JButton btnc5 = new JButton("NA");
+        double NA = 6.02214129E23 ;
         btnc5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnc5.getText();
+                String value = textFieldDisplay.getText() +NA;
                 textFieldDisplay.setText(value);
             }
         });
@@ -341,10 +413,11 @@ public class PhysicalConstant {
         btnc5.setBounds(215, 230, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnc5);
 
-        JButton btnd5 = new JButton("c");
+        JButton btnd5 = new JButton("k");
+        double k = 1.3806488E-23 ;
         btnd5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnd5.getText();
+                String value = textFieldDisplay.getText() + k;
                 textFieldDisplay.setText(value);
             }
         });
@@ -354,10 +427,11 @@ public class PhysicalConstant {
         PhysicalConstanFframe.getContentPane().add(btnd5);
 
 
-        JButton btn6 = new JButton("k");
+        JButton btn6 = new JButton("Vm");
+        double Vm = 0.022710953 ;
         btn6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btn6.getText();
+                String value = textFieldDisplay.getText() + Vm;
                 textFieldDisplay.setText(value);
             }
         });
@@ -366,10 +440,11 @@ public class PhysicalConstant {
         btn6.setBounds(20, 270, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btn6);
 
-        JButton btna6 = new JButton("c1");
+        JButton btna6 = new JButton("R");
+        double R = 8.3144621 ;
         btna6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btna6.getText();
+                String value = textFieldDisplay.getText() + R;
                 textFieldDisplay.setText(value);
             }
         });
@@ -378,10 +453,11 @@ public class PhysicalConstant {
         btna6.setBounds(85, 270, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btna6);
 
-        JButton btnb6 = new JButton("c2");
+        JButton btnb6 = new JButton("C0");
+        double C0 = 299792458 ;
         btnb6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnb6.getText();
+                String value = textFieldDisplay.getText() + C0;
                 textFieldDisplay.setText(value);
             }
         });
@@ -390,10 +466,11 @@ public class PhysicalConstant {
         btnb6.setBounds(150, 270, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnb6);
 
-        JButton btnc6 = new JButton("G0");
+        JButton btnc6 = new JButton("C1");
+        double C1 = 3.74177153E-16 ;
         btnc6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnc6.getText();
+                String value = textFieldDisplay.getText() + C1;
                 textFieldDisplay.setText(value);
             }
         });
@@ -402,10 +479,11 @@ public class PhysicalConstant {
         btnc6.setBounds(215, 270, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnc6);
 
-        JButton btnd6 = new JButton("eV");
+        JButton btnd6 = new JButton("C2");
+        double C2 = 1.438777E-2 ;
         btnd6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnd6.getText();
+                String value = textFieldDisplay.getText() + C2;
                 textFieldDisplay.setText(value);
             }
         });
@@ -415,10 +493,11 @@ public class PhysicalConstant {
         PhysicalConstanFframe.getContentPane().add(btnd6);
 
 
-        JButton btn7 = new JButton("Kcd");
+        JButton btn7 = new JButton("Stp");
+        double Stp = 5.670373E-8 ;
         btn7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btn7.getText();
+                String value = textFieldDisplay.getText() + Stp;
                 textFieldDisplay.setText(value);
             }
         });
@@ -427,10 +506,11 @@ public class PhysicalConstant {
         btn7.setBounds(20, 310, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btn7);
 
-        JButton btna7 = new JButton("b");
+        JButton btna7 = new JButton("e0");
+        double e0 = 8.854187817E-12 ;
         btna7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btna7.getText();
+                String value = textFieldDisplay.getText() + e0;
                 textFieldDisplay.setText(value);
             }
         });
@@ -439,10 +519,11 @@ public class PhysicalConstant {
         btna7.setBounds(85, 310, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btna7);
 
-        JButton btnb7 = new JButton("R");
+        JButton btnb7 = new JButton("u0");
+        double u0 = 1.256637061E-12 ;
         btnb7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnb7.getText();
+                String value = textFieldDisplay.getText() + u0;
                 textFieldDisplay.setText(value);
             }
         });
@@ -451,22 +532,24 @@ public class PhysicalConstant {
         btnb7.setBounds(150, 310, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnb7);
 
-        JButton btnc7 = new JButton("a^-1");
+        JButton btnc7 = new JButton("QF");
+        double QF = 2.067833758E-15 ;
         btnc7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnc7.getText();
+                String value = textFieldDisplay.getText() + QF;
                 textFieldDisplay.setText(value);
             }
         });
         btnc7.setBackground(new Color(135, 206, 250));
-        btnc7.setFont(new Font("Tahoma", Font.BOLD, 9));
+        btnc7.setFont(new Font("Tahoma", Font.BOLD, 15));
         btnc7.setBounds(215, 310, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnc7);
 
-        JButton btnd7 = new JButton("a");
+        JButton btnd7 = new JButton("g");
+        double g = 9.80665 ;
         btnd7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btnd7.getText();
+                String value = textFieldDisplay.getText() + g;
                 textFieldDisplay.setText(value);
             }
         });
@@ -475,6 +558,71 @@ public class PhysicalConstant {
         btnd7.setBounds(280, 310, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnd7);
 
+
+        JButton btn8 = new JButton("G0");
+        double G0 = 7.748091735E-5 ;
+        btn8.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String value = textFieldDisplay.getText() + G0;
+                textFieldDisplay.setText(value);
+            }
+        });
+        btn8.setBackground(new Color(135, 206, 250));
+        btn8.setFont(new Font("Tahoma", Font.BOLD, 13));
+        btn8.setBounds(20, 350, 60, 28);
+        PhysicalConstanFframe.getContentPane().add(btn8);
+
+        JButton btna8 = new JButton("Z0");
+        double Z0 = 376.7303    ;
+        btna8.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String value = textFieldDisplay.getText() + Z0;
+                textFieldDisplay.setText(value);
+            }
+        });
+        btna8.setBackground(new Color(135, 206, 250));
+        btna8.setFont(new Font("Tahoma", Font.BOLD, 12));
+        btna8.setBounds(85, 350, 60, 28);
+        PhysicalConstanFframe.getContentPane().add(btna8);
+
+        JButton btnb8 = new JButton("t");
+        double t = 273.15 ;
+        btnb8.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String value = textFieldDisplay.getText() + t;
+                textFieldDisplay.setText(value);
+            }
+        });
+        btnb8.setBackground(new Color(135, 206, 250));
+        btnb8.setFont(new Font("Tahoma", Font.BOLD, 15));
+        btnb8.setBounds(150, 350, 60, 28);
+        PhysicalConstanFframe.getContentPane().add(btnb8);
+
+        JButton btnc8 = new JButton("G");
+        double G = 6.67384E-11 ;
+        btnc8.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String value = textFieldDisplay.getText() + G;
+                textFieldDisplay.setText(value);
+            }
+        });
+        btnc8.setBackground(new Color(135, 206, 250));
+        btnc8.setFont(new Font("Tahoma", Font.BOLD, 15));
+        btnc8.setBounds(215, 350, 60, 28);
+        PhysicalConstanFframe.getContentPane().add(btnc8);
+
+        JButton btnd8 = new JButton("atm");
+        double atm = 101325 ;
+        btnd8.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String value = textFieldDisplay.getText() + atm;
+                textFieldDisplay.setText(value);
+            }
+        });
+        btnd8.setBackground(new Color(135, 206, 250));
+        btnd8.setFont(new Font("Tahoma", Font.BOLD, 12));
+        btnd8.setBounds(280, 350, 60, 28);
+        PhysicalConstanFframe.getContentPane().add(btnd8);
 
 
 
