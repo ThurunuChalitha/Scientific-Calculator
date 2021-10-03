@@ -7,6 +7,11 @@ package scicalculator;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import java.awt.Font;
+import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
 
 /**
  *
@@ -141,8 +146,8 @@ public class StandardCalculator extends javax.swing.JFrame {
         });
 
         sqrt.setBackground(new java.awt.Color(51, 255, 51));
-        sqrt.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        sqrt.setText("√");
+        sqrt.setFont(new Font("Arial Black", Font.BOLD, 16)); // NOI18N
+        sqrt.setText("sqrt");
         sqrt.setBorderPainted(false);
         sqrt.setFocusPainted(false);
         sqrt.setFocusable(false);
@@ -154,7 +159,7 @@ public class StandardCalculator extends javax.swing.JFrame {
 
         bacspace.setBackground(new java.awt.Color(51, 255, 51));
         bacspace.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        bacspace.setText("←");
+        bacspace.setText("<--");
         bacspace.setBorderPainted(false);
         bacspace.setFocusPainted(false);
         bacspace.setFocusable(false);
@@ -557,6 +562,10 @@ public class StandardCalculator extends javax.swing.JFrame {
         file.add(units);
 
         menuBar.add(file);
+        
+        mntmNewMenuItem = new JMenuItem("Physical Constant Generator");
+        mntmNewMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_MASK));
+        file.add(mntmNewMenuItem);
 
         setJMenuBar(menuBar);
 
@@ -952,6 +961,7 @@ public class StandardCalculator extends javax.swing.JFrame {
     private javax.swing.JButton two;
     private javax.swing.JMenuItem units;
     private javax.swing.JButton zero;
+    private JMenuItem mntmNewMenuItem;
     // End of variables declaration//GEN-END:variables
 
 }

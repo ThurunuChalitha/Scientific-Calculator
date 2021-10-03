@@ -1,3 +1,5 @@
+
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -19,10 +21,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 
-public class ScientificCal {
+public class ScientificCal extends JFrame{
 
-	private JFrame frmScientificCalculator;
-	private JTextField textFieldDisplay;
+	public JFrame frmScientificCalculator;
+	public JTextField textFieldDisplay;
 	
 	double num1 , num2 ,result = 0;
 	int n = (int)num1;
@@ -77,14 +79,15 @@ public class ScientificCal {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public void initialize() {
 		frmScientificCalculator = new JFrame();
 		frmScientificCalculator.setFont(new Font("Arial", Font.BOLD, 14));
 		frmScientificCalculator.setTitle("Scientific Calculator");
 		frmScientificCalculator.getContentPane().setBackground(new Color(0, 0, 0));
-		frmScientificCalculator.setBounds(100, 100, 390, 517);
+		frmScientificCalculator.setBounds(450, 170, 390, 517);
 		frmScientificCalculator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmScientificCalculator.getContentPane().setLayout(null);
+                frmScientificCalculator.setResizable(false);
 		
 		textFieldDisplay = new JTextField();
 		textFieldDisplay.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -308,7 +311,7 @@ public class ScientificCal {
 					num1=Double.parseDouble(textFieldDisplay.getText());
 					System.out.println(num1);
 					textFieldDisplay.setText("");
-					operation = "×";
+					operation = "ï¿½";
 					
 				}
 					catch(Exception ex){
@@ -417,58 +420,57 @@ public class ScientificCal {
 		btnEqual.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 				
+                                            num2 = Double.parseDouble(textFieldDisplay.getText());
+                                           
 						try {	
 							//String answer;
-							num2 = Double.parseDouble(textFieldDisplay.getText());
-							r = Integer.parseInt(textFieldDisplay.getText());
+							
+							
 							if (operation == "+")
 							{
 								
 								result = num1 + num2; 
-								answer = String.format("%.2f", result);
-								textFieldDisplay.setText(answer);
+								textFieldDisplay.setText(String.valueOf(result));
 							}
 							
 							else if (operation == "-")
 							{
 								
-								result = num1 - num2; 
-								answer = String.format("%.2f", result);
-								textFieldDisplay.setText(answer);
+								result = num1 - num2;
+								textFieldDisplay.setText(String.valueOf(result));
 							}
-							else if (operation == "×")
+							else if (operation == "ï¿½")
 							{
 								result = num1 * num2; 
-								answer = String.format("%.2f", result);
-								textFieldDisplay.setText(answer);
+								textFieldDisplay.setText(String.valueOf(result));
 							}
 							else if (operation == "/")
 							{
 								
 								result = num1 / num2; 
-								answer = String.format("%.2f", result);
-								textFieldDisplay.setText(answer);
+								/*answer = String.format("%.2f", result);*/
+								textFieldDisplay.setText(String.valueOf(result));
 							}
 							else if (operation == "X^Y")
 							{
 								result = Math.pow(num1, num2);
-								answer = String.format("%.2f", result);;
-								textFieldDisplay.setText(answer);
+								//answer = String.format("%.2f", result);
+								textFieldDisplay.setText(String.valueOf(result));
 							}
 							else if (operation == "nPr" && n>r)
 							{
-								
-							int	Ans_nPr = factorial(n) / factorial(n - r); 
+								r = Integer.parseInt(textFieldDisplay.getText());
+                                                                int Ans_nPr = factorial(n) / factorial(n - r); 
 								answer = String.format("%d", Ans_nPr);
 								textFieldDisplay.setText(answer);
 								
 							}
 							else if (operation == "nCr" && n>r)
 							{
-								
-							int	Ans_nCr = factorial(n) / (factorial(r)*(factorial(n - r))); 
-								answer = String.format("%d", Ans_nCr);
-								textFieldDisplay.setText(answer);								
+							      r = Integer.parseInt(textFieldDisplay.getText());
+							      int Ans_nCr = factorial(n) / (factorial(r)*(factorial(n - r))); 
+							      answer = String.format("%d", Ans_nCr);
+							      textFieldDisplay.setText(answer);								
 							}
 							else {
 								JOptionPane.showMessageDialog(null, "Syntax Error");
@@ -493,7 +495,7 @@ public class ScientificCal {
 
 			public void actionPerformed(ActionEvent e) {
 				String value = textFieldDisplay.getText() + btnPI.getText();
-				textFieldDisplay.setText(value);
+				textFieldDisplay.setText(String.valueOf(3.141592653));
 			}
 		});
 
@@ -621,6 +623,11 @@ public class ScientificCal {
 		frmScientificCalculator.getContentPane().add(btn_nCr);
 		
 		JButton btnAlpha = new JButton("e");
+                btnAlpha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                            textFieldDisplay.setText("2.718281828");
+			}
+		});
 		btnAlpha.setBackground(new Color(255, 255, 0));
 		btnAlpha.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnAlpha.setBounds(196, 72, 80, 28);
@@ -933,3 +940,4 @@ public class ScientificCal {
 		Menu.add(MenuItemExit);
 	}
 }
+
