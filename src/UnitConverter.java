@@ -130,6 +130,7 @@ public class UnitConverter extends javax.swing.JFrame {
 		frame.setBounds(100, 100, 529, 652);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
+		frame.setVisible(true);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(new Color(255, 255, 255));
@@ -150,8 +151,7 @@ public class UnitConverter extends javax.swing.JFrame {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Scientific Calculator");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ScientificCal sfcal=new ScientificCal();
-				sfcal.setVisible(true);
+				new ScientificCal();
 				
 			}
 		});
@@ -160,8 +160,8 @@ public class UnitConverter extends javax.swing.JFrame {
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Physical Constant Generator");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UnitConverter unitC=new UnitConverter();
-				unitC.setVisible(true);
+				new PhysicalConstant();
+
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);

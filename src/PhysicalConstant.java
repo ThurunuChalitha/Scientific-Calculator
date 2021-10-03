@@ -59,6 +59,7 @@ public class PhysicalConstant extends javax.swing.JFrame {
         PhysicalConstanFframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         PhysicalConstanFframe.getContentPane().setLayout(null);
         PhysicalConstanFframe.setResizable(false);
+        PhysicalConstanFframe.setVisible(true);
 
         textFieldDisplay = new JTextField();
         textFieldDisplay.setHorizontalAlignment(SwingConstants.RIGHT);

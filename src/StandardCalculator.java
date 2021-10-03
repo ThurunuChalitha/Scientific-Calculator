@@ -77,15 +77,14 @@ public class StandardCalculator extends javax.swing.JFrame {
         scientific = new javax.swing.JMenuItem();
         scientific.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		ScientificCal sfcal1=new ScientificCal();
-				sfcal1.setVisible(true);
+        		new ScientificCal();
+
         	}
         });
         units = new javax.swing.JMenuItem();
         units.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		UnitConverter uniCal1=new UnitConverter();
-        		uniCal1.setVisible(true);
+        		new UnitConverter();
         	}
         });
 
@@ -575,6 +574,7 @@ public class StandardCalculator extends javax.swing.JFrame {
         mntmNewMenuItem = new JMenuItem("Physical Constant Generator");
         mntmNewMenuItem.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+                new PhysicalConstant();
         		
         	}
         });

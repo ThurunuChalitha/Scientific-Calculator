@@ -1,6 +1,4 @@
 
-
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -89,7 +87,8 @@ public class ScientificCal extends JFrame{
 		frmScientificCalculator.setBounds(450, 170, 390, 517);
 		frmScientificCalculator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmScientificCalculator.getContentPane().setLayout(null);
-                frmScientificCalculator.setResizable(false);
+        frmScientificCalculator.setResizable(false);
+        frmScientificCalculator.setVisible(true);
 		
 		textFieldDisplay = new JTextField();
 		textFieldDisplay.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -474,6 +473,14 @@ public class ScientificCal extends JFrame{
 							      answer = String.format("%d", Ans_nCr);
 							      textFieldDisplay.setText(answer);								
 							}
+							else if (operation == "AlgX")                             //add below the equal button
+							{
+								num2 = Double.parseDouble(textFieldDisplay.getText());
+								double Ans_logAx = Math.log(num2) / Math.log(num1);
+								answer = String.valueOf(Ans_logAx);
+								textFieldDisplay.setText(answer);
+
+							}
 							else {
 								JOptionPane.showMessageDialog(null, "Syntax Error");
 							}
@@ -649,9 +656,12 @@ public class ScientificCal extends JFrame{
 		frmScientificCalculator.getContentPane().add(btnAlpha);
 
 		
-		JButton btnCalc = new JButton("CALC");
+		JButton btnCalc = new JButton("MR");
 		btnCalc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String value=textFieldMemory.getText();
+				textFieldDisplay.setText(value);
+
 			}
 		});
 		btnCalc.setBackground(new Color(32, 178, 170));
@@ -842,6 +852,19 @@ public class ScientificCal extends JFrame{
 		});
 		
 		JButton btnLogaX = new JButton("Log_a X");
+		btnLogaX.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					num1 =Double.parseDouble(textFieldDisplay.getText());      //line 828   add after the relevent button listner
+					textFieldDisplay.setText("");
+					operation = "AlgX";
+
+				}
+				catch(Exception ex){
+					JOptionPane.showMessageDialog(null, "Syntax Error...");
+				}
+			}
+		});
 		btnLogaX.setBackground(new Color(32, 178, 170));
 		btnLogaX.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnLogaX.setBounds(10, 151, 80, 28);
@@ -921,28 +944,28 @@ public class ScientificCal extends JFrame{
 		menuBar.add(Menu);
 		
 		JMenuItem MenuItemStandard = new JMenuItem("Standard Calculator");
-		Menu.add(MenuItemStandard);
-		
-		JMenuItem MenuItemScientific = new JMenuItem("Scientific Calculator");
-		MenuItemScientific.addActionListener(new ActionListener() {
+		MenuItemStandard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmScientificCalculator.setTitle("Scientific Calculator");
-				frmScientificCalculator.setBounds(100, 100, 390, 517);
-				textFieldDisplay.setBounds(9, 25, 356, 45);
+				new StandardCalculator();
+				new StandardCalculator().setVisible(true);
 			}
 		});
-		Menu.add(MenuItemScientific);
-		
+		Menu.add(MenuItemStandard);
+
 		JMenuItem MenuItemUnitConverter = new JMenuItem("Unit Converter");
+		MenuItemUnitConverter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new UnitConverter();
+
+			}
+		});
 		Menu.add(MenuItemUnitConverter);
 
 		JMenuItem MenuItemPhysicalConstant = new JMenuItem("Physical Constant");
 		Menu.add(MenuItemPhysicalConstant);
 		MenuItemPhysicalConstant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmScientificCalculator.setTitle("Physical Constant");
-				frmScientificCalculator.setBounds(100, 100, 390, 517);
-				textFieldDisplay.setBounds(9, 25, 356, 45);
+				new PhysicalConstant();
 			}
 		});
 		
