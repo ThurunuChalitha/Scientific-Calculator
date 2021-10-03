@@ -8,16 +8,21 @@ import javax.swing.JMenu;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 
-public class UnitConverter {
+public class UnitConverter extends javax.swing.JFrame {
 	
 	double val_Area,val_Length,val_Mass,val_Temp,val_Power,val_Ener,val_Press=0.0000;
 	double ans_Area,ans_Length,ans_Mass,ans_Temp,ans_Power,ans_Ener,ans_Press=0.0000;
@@ -118,10 +123,14 @@ public class UnitConverter {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Unit Converter");
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(UnitConverter.class.getResource("/convert.png")));
 		frame.getContentPane().setBackground(SystemColor.activeCaption);
 		frame.setForeground(Color.WHITE);
 		frame.setBounds(100, 100, 529, 652);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
+		frame.setVisible(true);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(new Color(255, 255, 255));
@@ -130,13 +139,31 @@ public class UnitConverter {
 		JMenu mnNewMenu = new JMenu("File");
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem mntmStanderedCalculator = new JMenuItem("Standered Calculator");
+		JMenuItem mntmStanderedCalculator = new JMenuItem("Standard Calculator");
+		mntmStanderedCalculator.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				StandardCalculator stdcal=new StandardCalculator();
+				stdcal.setVisible(true);
+			}
+		});
 		mnNewMenu.add(mntmStanderedCalculator);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Scientific Calculator");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ScientificCal();
+				
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Unit Converter");
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Physical Constant Generator");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new PhysicalConstant();
+
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Exit");
@@ -145,7 +172,34 @@ public class UnitConverter {
 				System.exit(0);
 			}
 		});
-		mnNewMenu.add(mntmNewMenuItem_2);
+
+		
+		JMenu mnNewMenu_1 = new JMenu("Help");
+		menuBar.add(mnNewMenu_1);
+		
+		
+		/**
+		 * Opening ReadMe file.
+		 */
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Read Me");
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			    try {
+			        Desktop desktop = null;
+			        if (Desktop.isDesktopSupported()) {
+			          desktop = Desktop.getDesktop();
+			        }
+
+			         desktop.open(new File("src/Unit Converter.pdf"));
+			         } catch (IOException ioe) {
+			        	 ioe.printStackTrace();
+			        	 }
+			}
+			
+			
+			
+		});
+		mnNewMenu_1.add(mntmNewMenuItem_3);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Unit Converter");
@@ -1305,5 +1359,9 @@ public class UnitConverter {
 		}
 		return ans_Press;
 	}
-	
+
+	public void setVisible(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
 }

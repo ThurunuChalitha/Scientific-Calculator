@@ -1,12 +1,19 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ l * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package scicalculator;
+
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import java.awt.Font;
+import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -67,12 +74,22 @@ public class StandardCalculator extends javax.swing.JFrame {
         divide = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         file = new javax.swing.JMenu();
-        standard = new javax.swing.JMenuItem();
         scientific = new javax.swing.JMenuItem();
+        scientific.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		new ScientificCal();
+
+        	}
+        });
         units = new javax.swing.JMenuItem();
+        units.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		new UnitConverter();
+        	}
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Scientific Calculator");
+        setTitle("Standard Calculator");
         setResizable(false);
 
         basePanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -141,8 +158,8 @@ public class StandardCalculator extends javax.swing.JFrame {
         });
 
         sqrt.setBackground(new java.awt.Color(51, 255, 51));
-        sqrt.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        sqrt.setText("√");
+        sqrt.setFont(new Font("Arial Black", Font.BOLD, 16)); // NOI18N
+        sqrt.setText("sqrt");
         sqrt.setBorderPainted(false);
         sqrt.setFocusPainted(false);
         sqrt.setFocusable(false);
@@ -154,7 +171,7 @@ public class StandardCalculator extends javax.swing.JFrame {
 
         bacspace.setBackground(new java.awt.Color(51, 255, 51));
         bacspace.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        bacspace.setText("←");
+        bacspace.setText("<--");
         bacspace.setBorderPainted(false);
         bacspace.setFocusPainted(false);
         bacspace.setFocusable(false);
@@ -544,10 +561,6 @@ public class StandardCalculator extends javax.swing.JFrame {
 
         file.setText("File");
 
-        standard.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        standard.setText("Standard Calculator");
-        file.add(standard);
-
         scientific.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         scientific.setText("Scientific Calculator");
         file.add(scientific);
@@ -557,6 +570,16 @@ public class StandardCalculator extends javax.swing.JFrame {
         file.add(units);
 
         menuBar.add(file);
+        
+        mntmNewMenuItem = new JMenuItem("Physical Constant Generator");
+        mntmNewMenuItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+                new PhysicalConstant();
+        		
+        	}
+        });
+        mntmNewMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_MASK));
+        file.add(mntmNewMenuItem);
 
         setJMenuBar(menuBar);
 
@@ -606,13 +629,6 @@ public class StandardCalculator extends javax.swing.JFrame {
         off.setEnabled(false);
         display.setText("");
         equation.setText("");
-        
-        
-        
-        
-        
-        
-        
         
         
     }//GEN-LAST:event_offActionPerformed
@@ -910,6 +926,7 @@ public class StandardCalculator extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+            	
                 new StandardCalculator().setVisible(true);
             }
         });
@@ -947,11 +964,11 @@ public class StandardCalculator extends javax.swing.JFrame {
     private javax.swing.JButton six;
     private javax.swing.JButton sqrt;
     private javax.swing.JButton square;
-    private javax.swing.JMenuItem standard;
     private javax.swing.JButton three;
     private javax.swing.JButton two;
     private javax.swing.JMenuItem units;
     private javax.swing.JButton zero;
+    private JMenuItem mntmNewMenuItem;
     // End of variables declaration//GEN-END:variables
 
 }

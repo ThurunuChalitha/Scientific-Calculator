@@ -1,3 +1,4 @@
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -15,15 +16,16 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import javax.swing.ButtonGroup;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 
-public class ScientificCal {
+public class ScientificCal extends JFrame{
 
-	private JFrame frmScientificCalculator;
-	private JTextField textFieldDisplay;
+	public JFrame frmScientificCalculator;
+	public JTextField textFieldDisplay;
 	
 	double num1 , num2 ,result = 0;
 	int n = (int)num1;
@@ -78,14 +80,16 @@ public class ScientificCal {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public void initialize() {
 		frmScientificCalculator = new JFrame();
 		frmScientificCalculator.setFont(new Font("Arial", Font.BOLD, 14));
 		frmScientificCalculator.setTitle("Scientific Calculator");
 		frmScientificCalculator.getContentPane().setBackground(new Color(0, 0, 0));
-		frmScientificCalculator.setBounds(100, 100, 390, 517);
+		frmScientificCalculator.setBounds(450, 170, 390, 517);
 		frmScientificCalculator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmScientificCalculator.getContentPane().setLayout(null);
+        frmScientificCalculator.setResizable(false);
+        frmScientificCalculator.setVisible(true);
 		
 		textFieldDisplay = new JTextField();
 		textFieldDisplay.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -309,7 +313,7 @@ public class ScientificCal {
 					num1=Double.parseDouble(textFieldDisplay.getText());
 					System.out.println(num1);
 					textFieldDisplay.setText("");
-					operation = "×";
+					operation = "ï¿½";
 					
 				}
 					catch(Exception ex){
@@ -418,58 +422,65 @@ public class ScientificCal {
 		btnEqual.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 				
+                                            num2 = Double.parseDouble(textFieldDisplay.getText());
+                                           
 						try {	
 							//String answer;
-							num2 = Double.parseDouble(textFieldDisplay.getText());
-							r = Integer.parseInt(textFieldDisplay.getText());
+							
+							
 							if (operation == "+")
 							{
 								
 								result = num1 + num2; 
-								answer = String.format("%.2f", result);
-								textFieldDisplay.setText(answer);
+								textFieldDisplay.setText(String.valueOf(result));
 							}
 							
 							else if (operation == "-")
 							{
 								
-								result = num1 - num2; 
-								answer = String.format("%.2f", result);
-								textFieldDisplay.setText(answer);
+								result = num1 - num2;
+								textFieldDisplay.setText(String.valueOf(result));
 							}
-							else if (operation == "×")
+							else if (operation == "ï¿½")
 							{
 								result = num1 * num2; 
-								answer = String.format("%.2f", result);
-								textFieldDisplay.setText(answer);
+								textFieldDisplay.setText(String.valueOf(result));
 							}
 							else if (operation == "/")
 							{
 								
 								result = num1 / num2; 
-								answer = String.format("%.2f", result);
-								textFieldDisplay.setText(answer);
+								/*answer = String.format("%.2f", result);*/
+								textFieldDisplay.setText(String.valueOf(result));
 							}
 							else if (operation == "X^Y")
 							{
 								result = Math.pow(num1, num2);
-								answer = String.format("%.2f", result);;
-								textFieldDisplay.setText(answer);
+								//answer = String.format("%.2f", result);
+								textFieldDisplay.setText(String.valueOf(result));
 							}
 							else if (operation == "nPr" && n>r)
 							{
-								
-							int	Ans_nPr = factorial(n) / factorial(n - r); 
+								r = Integer.parseInt(textFieldDisplay.getText());
+                                                                int Ans_nPr = factorial(n) / factorial(n - r); 
 								answer = String.format("%d", Ans_nPr);
 								textFieldDisplay.setText(answer);
 								
 							}
 							else if (operation == "nCr" && n>r)
 							{
-								
-							int	Ans_nCr = factorial(n) / (factorial(r)*(factorial(n - r))); 
-								answer = String.format("%d", Ans_nCr);
-								textFieldDisplay.setText(answer);								
+							      r = Integer.parseInt(textFieldDisplay.getText());
+							      int Ans_nCr = factorial(n) / (factorial(r)*(factorial(n - r))); 
+							      answer = String.format("%d", Ans_nCr);
+							      textFieldDisplay.setText(answer);								
+							}
+							else if (operation == "AlgX")                             //add below the equal button
+							{
+								num2 = Double.parseDouble(textFieldDisplay.getText());
+								double Ans_logAx = Math.log(num2) / Math.log(num1);
+								answer = String.valueOf(Ans_logAx);
+								textFieldDisplay.setText(answer);
+
 							}
 							else {
 								JOptionPane.showMessageDialog(null, "Syntax Error");
@@ -494,10 +505,10 @@ public class ScientificCal {
 
 			public void actionPerformed(ActionEvent e) {
 				String value = textFieldDisplay.getText() + btnPI.getText();
-				textFieldDisplay.setText(value);
+				textFieldDisplay.setText(String.valueOf(3.141592653));
 			}
-		});
-
+		});                
+                
 		
 		JRadioButton rdbtnOn = new JRadioButton("ON");
 		rdbtnOn.setBackground(new Color(188, 143, 143));
@@ -510,6 +521,17 @@ public class ScientificCal {
 		rdbtnOff.setFont(new Font("Tahoma", Font.BOLD, 13));
 		rdbtnOff.setBounds(100, 72, 80, 28);
 		frmScientificCalculator.getContentPane().add(rdbtnOff);
+                
+               // create button group
+               
+               ButtonGroup group = new ButtonGroup();
+               group.add(rdbtnOn);
+               group.add(rdbtnOff);
+               
+               
+               
+               
+
 		
 		JButton btnLn = new JButton("ln");
 		btnLn.addActionListener(new ActionListener() {
@@ -523,6 +545,8 @@ public class ScientificCal {
 		btnLn.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnLn.setBounds(71, 268, 57, 28);
 		frmScientificCalculator.getContentPane().add(btnLn);
+                
+                
 		
 		JButton btnOpenBracket = new JButton("(");
 		btnOpenBracket.addActionListener(new ActionListener() {
@@ -622,15 +646,23 @@ public class ScientificCal {
 		frmScientificCalculator.getContentPane().add(btn_nCr);
 		
 		JButton btnAlpha = new JButton("e");
+                btnAlpha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                            textFieldDisplay.setText("2.718281828");
+			}
+		});
 		btnAlpha.setBackground(new Color(255, 255, 0));
 		btnAlpha.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnAlpha.setBounds(196, 72, 80, 28);
 		frmScientificCalculator.getContentPane().add(btnAlpha);
 
 		
-		JButton btnCalc = new JButton("CALC");
+		JButton btnCalc = new JButton("MR");
 		btnCalc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String value=textFieldMemory.getText();
+				textFieldDisplay.setText(value);
+
 			}
 		});
 		btnCalc.setBackground(new Color(32, 178, 170));
@@ -821,6 +853,19 @@ public class ScientificCal {
 		});
 		
 		JButton btnLogaX = new JButton("Log_a X");
+		btnLogaX.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					num1 =Double.parseDouble(textFieldDisplay.getText());      //line 828   add after the relevent button listner
+					textFieldDisplay.setText("");
+					operation = "AlgX";
+
+				}
+				catch(Exception ex){
+					JOptionPane.showMessageDialog(null, "Syntax Error...");
+				}
+			}
+		});
 		btnLogaX.setBackground(new Color(32, 178, 170));
 		btnLogaX.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnLogaX.setBounds(10, 151, 80, 28);
@@ -900,28 +945,28 @@ public class ScientificCal {
 		menuBar.add(Menu);
 		
 		JMenuItem MenuItemStandard = new JMenuItem("Standard Calculator");
-		Menu.add(MenuItemStandard);
-		
-		JMenuItem MenuItemScientific = new JMenuItem("Scientific Calculator");
-		MenuItemScientific.addActionListener(new ActionListener() {
+		MenuItemStandard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmScientificCalculator.setTitle("Scientific Calculator");
-				frmScientificCalculator.setBounds(100, 100, 390, 517);
-				textFieldDisplay.setBounds(9, 25, 356, 45);
+				new StandardCalculator();
+				new StandardCalculator().setVisible(true);
 			}
 		});
-		Menu.add(MenuItemScientific);
-		
+		Menu.add(MenuItemStandard);
+
 		JMenuItem MenuItemUnitConverter = new JMenuItem("Unit Converter");
+		MenuItemUnitConverter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new UnitConverter();
+
+			}
+		});
 		Menu.add(MenuItemUnitConverter);
 
 		JMenuItem MenuItemPhysicalConstant = new JMenuItem("Physical Constant");
 		Menu.add(MenuItemPhysicalConstant);
 		MenuItemPhysicalConstant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmScientificCalculator.setTitle("Physical Constant");
-				frmScientificCalculator.setBounds(100, 100, 390, 517);
-				textFieldDisplay.setBounds(9, 25, 356, 45);
+				new PhysicalConstant();
 			}
 		});
 		
@@ -932,5 +977,138 @@ public class ScientificCal {
 			}
 		});
 		Menu.add(MenuItemExit);
+                
+                // cal off code 
+               
+               rdbtnOff.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                            btnLn.setEnabled(false);
+                            btnLog.setEnabled(false);
+                            btn0.setEnabled(false);
+                            btn1.setEnabled(false);
+                            btn2.setEnabled(false);
+                            btn3.setEnabled(false);
+                            btn4.setEnabled(false);
+                            btn5.setEnabled(false);
+                            btn6.setEnabled(false);
+                            btn7.setEnabled(false);
+                            btn8.setEnabled(false);
+                            btn9.setEnabled(false);
+                            btnDecimal.setEnabled(false);
+                            btnSin.setEnabled(false);
+                            btnCos.setEnabled(false);
+                            btnDelete.setEnabled(false);
+                            btnMultiplication.setEnabled(false);
+                            btnDivision.setEnabled(false);
+                            btnAddition.setEnabled(false);
+                            btnSubstraction.setEnabled(false);
+                            btnExp.setEnabled(false);
+                            btnMemory.setEnabled(false);
+                            btnEqual.setEnabled(false);
+                            btnPI.setEnabled(false);
+                            btnOpenBracket.setEnabled(false);
+                            btnCloseBracket.setEnabled(false);
+                            btnTan.setEnabled(false);
+                            btnSquareroot.setEnabled(false);
+                            btn_nPr.setEnabled(false);
+                            btn_nCr.setEnabled(false);
+                            btnAlpha.setEnabled(false);
+                            btnCalc.setEnabled(false);
+                            btn_RadToDeg.setEnabled(false);
+                            btnMemoryClear.setEnabled(false);
+                            btn_aSin.setEnabled(false);
+                            btn_aCos.setEnabled(false);
+                            btn_aTan.setEnabled(false);
+                            btnSinh.setEnabled(false);
+                            btnCosh.setEnabled(false);
+                            btnTanh.setEnabled(false);
+                            btnLogaX.setEnabled(false);
+                            btnFactorial.setEnabled(false);
+                            btnPower2toX.setEnabled(false);
+                            btnPowerNtoX.setEnabled(false);
+                            btnPowerMinus1toX.setEnabled(false);
+                            lblMemory.setEnabled(false);
+                            Menu.setEnabled(false);
+                            textFieldMemory.setEnabled(false);
+                            btnStandardDecimalConversion.setEnabled(false);
+                            btnAC.setEnabled(false);
+                            textFieldDisplay.setEnabled(false);
+                            
+			}
+		});
+               
+               // cal off code
+               
+               rdbtnOn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                            btnLn.setEnabled(true);
+                            btnLog.setEnabled(true);
+                            btn0.setEnabled(true);
+                            btn1.setEnabled(true);
+                            btn2.setEnabled(true);
+                            btn3.setEnabled(true);
+                            btn4.setEnabled(true);
+                            btn5.setEnabled(true);
+                            btn6.setEnabled(true);
+                            btn7.setEnabled(true);
+                            btn8.setEnabled(true);
+                            btn9.setEnabled(true);
+                            btnDecimal.setEnabled(true);
+                            btnSin.setEnabled(true);
+                            btnCos.setEnabled(true);
+                            btnDelete.setEnabled(true);
+                            btnMultiplication.setEnabled(true);
+                            btnDivision.setEnabled(true);
+                            btnAddition.setEnabled(true);
+                            btnSubstraction.setEnabled(true);
+                            btnExp.setEnabled(true);
+                            btnMemory.setEnabled(true);
+                            btnEqual.setEnabled(true);
+                            btnPI.setEnabled(true);
+                            btnOpenBracket.setEnabled(true);
+                            btnCloseBracket.setEnabled(true);
+                            btnTan.setEnabled(true);
+                            btnSquareroot.setEnabled(true);
+                            btn_nPr.setEnabled(true);
+                            btn_nCr.setEnabled(true);
+                            btnAlpha.setEnabled(true);
+                            btnCalc.setEnabled(true);
+                            btn_RadToDeg.setEnabled(true);
+                            btnMemoryClear.setEnabled(true);
+                            btn_aSin.setEnabled(true);
+                            btn_aCos.setEnabled(true);
+                            btn_aTan.setEnabled(true);
+                            btnSinh.setEnabled(true);
+                            btnCosh.setEnabled(true);
+                            btnTanh.setEnabled(true);
+                            btnLogaX.setEnabled(true);
+                            btnFactorial.setEnabled(true);
+                            btnPower2toX.setEnabled(true);
+                            btnPowerNtoX.setEnabled(true);
+                            btnPowerMinus1toX.setEnabled(true);
+                            lblMemory.setEnabled(true);
+                            Menu.setEnabled(true);
+                            textFieldMemory.setEnabled(true);
+                            btnStandardDecimalConversion.setEnabled(true);
+                            btnAC.setEnabled(true);
+                            textFieldDisplay.setEnabled(true);
+                            
+			}
+		});
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+                
 	}
 }
+
