@@ -1,5 +1,6 @@
 
 
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import javax.swing.ButtonGroup;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -497,8 +499,8 @@ public class ScientificCal extends JFrame{
 				String value = textFieldDisplay.getText() + btnPI.getText();
 				textFieldDisplay.setText(String.valueOf(3.141592653));
 			}
-		});
-
+		});                
+                
 		
 		JRadioButton rdbtnOn = new JRadioButton("ON");
 		rdbtnOn.setBackground(new Color(188, 143, 143));
@@ -511,6 +513,17 @@ public class ScientificCal extends JFrame{
 		rdbtnOff.setFont(new Font("Tahoma", Font.BOLD, 13));
 		rdbtnOff.setBounds(100, 72, 80, 28);
 		frmScientificCalculator.getContentPane().add(rdbtnOff);
+                
+               // create button group
+               
+               ButtonGroup group = new ButtonGroup();
+               group.add(rdbtnOn);
+               group.add(rdbtnOff);
+               
+               
+               
+               
+
 		
 		JButton btnLn = new JButton("ln");
 		btnLn.addActionListener(new ActionListener() {
@@ -524,6 +537,8 @@ public class ScientificCal extends JFrame{
 		btnLn.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnLn.setBounds(71, 268, 57, 28);
 		frmScientificCalculator.getContentPane().add(btnLn);
+                
+                
 		
 		JButton btnOpenBracket = new JButton("(");
 		btnOpenBracket.addActionListener(new ActionListener() {
@@ -938,6 +953,138 @@ public class ScientificCal extends JFrame{
 			}
 		});
 		Menu.add(MenuItemExit);
+                
+                // cal off code 
+               
+               rdbtnOff.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                            btnLn.setEnabled(false);
+                            btnLog.setEnabled(false);
+                            btn0.setEnabled(false);
+                            btn1.setEnabled(false);
+                            btn2.setEnabled(false);
+                            btn3.setEnabled(false);
+                            btn4.setEnabled(false);
+                            btn5.setEnabled(false);
+                            btn6.setEnabled(false);
+                            btn7.setEnabled(false);
+                            btn8.setEnabled(false);
+                            btn9.setEnabled(false);
+                            btnDecimal.setEnabled(false);
+                            btnSin.setEnabled(false);
+                            btnCos.setEnabled(false);
+                            btnDelete.setEnabled(false);
+                            btnMultiplication.setEnabled(false);
+                            btnDivision.setEnabled(false);
+                            btnAddition.setEnabled(false);
+                            btnSubstraction.setEnabled(false);
+                            btnExp.setEnabled(false);
+                            btnMemory.setEnabled(false);
+                            btnEqual.setEnabled(false);
+                            btnPI.setEnabled(false);
+                            btnOpenBracket.setEnabled(false);
+                            btnCloseBracket.setEnabled(false);
+                            btnTan.setEnabled(false);
+                            btnSquareroot.setEnabled(false);
+                            btn_nPr.setEnabled(false);
+                            btn_nCr.setEnabled(false);
+                            btnAlpha.setEnabled(false);
+                            btnCalc.setEnabled(false);
+                            btn_RadToDeg.setEnabled(false);
+                            btnMemoryClear.setEnabled(false);
+                            btn_aSin.setEnabled(false);
+                            btn_aCos.setEnabled(false);
+                            btn_aTan.setEnabled(false);
+                            btnSinh.setEnabled(false);
+                            btnCosh.setEnabled(false);
+                            btnTanh.setEnabled(false);
+                            btnLogaX.setEnabled(false);
+                            btnFactorial.setEnabled(false);
+                            btnPower2toX.setEnabled(false);
+                            btnPowerNtoX.setEnabled(false);
+                            btnPowerMinus1toX.setEnabled(false);
+                            lblMemory.setEnabled(false);
+                            Menu.setEnabled(false);
+                            textFieldMemory.setEnabled(false);
+                            btnStandardDecimalConversion.setEnabled(false);
+                            btnAC.setEnabled(false);
+                            textFieldDisplay.setEnabled(false);
+                            
+			}
+		});
+               
+               // cal off code
+               
+               rdbtnOn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                            btnLn.setEnabled(true);
+                            btnLog.setEnabled(true);
+                            btn0.setEnabled(true);
+                            btn1.setEnabled(true);
+                            btn2.setEnabled(true);
+                            btn3.setEnabled(true);
+                            btn4.setEnabled(true);
+                            btn5.setEnabled(true);
+                            btn6.setEnabled(true);
+                            btn7.setEnabled(true);
+                            btn8.setEnabled(true);
+                            btn9.setEnabled(true);
+                            btnDecimal.setEnabled(true);
+                            btnSin.setEnabled(true);
+                            btnCos.setEnabled(true);
+                            btnDelete.setEnabled(true);
+                            btnMultiplication.setEnabled(true);
+                            btnDivision.setEnabled(true);
+                            btnAddition.setEnabled(true);
+                            btnSubstraction.setEnabled(true);
+                            btnExp.setEnabled(true);
+                            btnMemory.setEnabled(true);
+                            btnEqual.setEnabled(true);
+                            btnPI.setEnabled(true);
+                            btnOpenBracket.setEnabled(true);
+                            btnCloseBracket.setEnabled(true);
+                            btnTan.setEnabled(true);
+                            btnSquareroot.setEnabled(true);
+                            btn_nPr.setEnabled(true);
+                            btn_nCr.setEnabled(true);
+                            btnAlpha.setEnabled(true);
+                            btnCalc.setEnabled(true);
+                            btn_RadToDeg.setEnabled(true);
+                            btnMemoryClear.setEnabled(true);
+                            btn_aSin.setEnabled(true);
+                            btn_aCos.setEnabled(true);
+                            btn_aTan.setEnabled(true);
+                            btnSinh.setEnabled(true);
+                            btnCosh.setEnabled(true);
+                            btnTanh.setEnabled(true);
+                            btnLogaX.setEnabled(true);
+                            btnFactorial.setEnabled(true);
+                            btnPower2toX.setEnabled(true);
+                            btnPowerNtoX.setEnabled(true);
+                            btnPowerMinus1toX.setEnabled(true);
+                            lblMemory.setEnabled(true);
+                            Menu.setEnabled(true);
+                            textFieldMemory.setEnabled(true);
+                            btnStandardDecimalConversion.setEnabled(true);
+                            btnAC.setEnabled(true);
+                            textFieldDisplay.setEnabled(true);
+                            
+			}
+		});
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+                
 	}
 }
 

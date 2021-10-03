@@ -17,8 +17,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-public class PhysicalConstant {
-
+public class PhysicalConstant extends javax.swing.JFrame {
+	
 
     private JFrame PhysicalConstanFframe;
     private JTextField textFieldDisplay;
@@ -58,6 +58,7 @@ public class PhysicalConstant {
         PhysicalConstanFframe.setBounds(100, 100, 373, 458);
         PhysicalConstanFframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         PhysicalConstanFframe.getContentPane().setLayout(null);
+        PhysicalConstanFframe.setResizable(false);
 
         textFieldDisplay = new JTextField();
         textFieldDisplay.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -674,4 +675,5 @@ public class PhysicalConstant {
 
 
     }
+
 }
