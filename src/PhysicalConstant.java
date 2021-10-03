@@ -3,11 +3,19 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class PhysicalConstant {
 
@@ -15,33 +23,6 @@ public class PhysicalConstant {
     private JFrame PhysicalConstanFframe;
     private JTextField textFieldDisplay;
 
-
-    double num1 , num2 ,result = 0;
-    int n = (int)num1;
-    int r = (int)num2;
-    int i;
-    int factorial(int n) {
-        int j = 1;
-        for(int i =1; i <= n; i++) {
-            j = j * i;
-        }
-        return j;
-    }
-
-    long gcd(long a, long b)
-    {
-        if (a == 0)
-            return b;
-        else if (b == 0)
-            return a;
-        if (a < b)
-            return gcd(a, b % a);
-        else
-            return gcd(b, a % b);
-    }
-    String operation ;
-    String  answer;
-    private JTextField textFieldMemory;
     /**
      * Launch the application.
      */
@@ -70,16 +51,17 @@ public class PhysicalConstant {
      */
     private void initialize() {
         PhysicalConstanFframe = new JFrame();
+        PhysicalConstanFframe.setTitle("Physical Constant Generator");
+        PhysicalConstanFframe.setIconImage(Toolkit.getDefaultToolkit().getImage(UnitConverter.class.getResource("/physical.png")));
         PhysicalConstanFframe.setFont(new Font("Arial", Font.BOLD, 14));
-        PhysicalConstanFframe.setTitle("Scientific Calculator");
         PhysicalConstanFframe.getContentPane().setBackground(new Color(0, 0, 0));
-        PhysicalConstanFframe.setBounds(100, 100, 380, 430);
+        PhysicalConstanFframe.setBounds(100, 100, 373, 458);
         PhysicalConstanFframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         PhysicalConstanFframe.getContentPane().setLayout(null);
 
         textFieldDisplay = new JTextField();
         textFieldDisplay.setHorizontalAlignment(SwingConstants.RIGHT);
-        textFieldDisplay.setBounds(10, 10, 265, 45);
+        textFieldDisplay.setBounds(22, 10, 253, 45);
         PhysicalConstanFframe.getContentPane().add(textFieldDisplay);
         textFieldDisplay.setColumns(10);
 
@@ -88,9 +70,6 @@ public class PhysicalConstant {
         btnAC.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 textFieldDisplay.setText("");
-                num1 = 0.0;
-                num2 = 0.0;
-                operation ="";
             }
         });
         btnAC.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -101,6 +80,7 @@ public class PhysicalConstant {
         double mp = 11.672621777E-27 ;
         btn1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + mp;
                 textFieldDisplay.setText(value);
             }
@@ -114,6 +94,7 @@ public class PhysicalConstant {
         double mn = 1.674927351E-27 ;
         btn1a.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + mn;
                 textFieldDisplay.setText(value);
             }
@@ -127,6 +108,7 @@ public class PhysicalConstant {
         double me = 9.10938291E-31 ;
         btn1b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + me;
                 textFieldDisplay.setText(value);
             }
@@ -140,6 +122,7 @@ public class PhysicalConstant {
         double mu = 1.883531475E-28;
         btn1c.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + mu;
                 textFieldDisplay.setText(value);
             }
@@ -153,6 +136,7 @@ public class PhysicalConstant {
         double a0 = 5.291772109E-11 ;
         btn1d.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + a0;
                 textFieldDisplay.setText(value);
             }
@@ -168,6 +152,7 @@ public class PhysicalConstant {
         double h = 6.62606957E-34 ;
         btn2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() +h;
                 textFieldDisplay.setText(value);
             }
@@ -181,6 +166,7 @@ public class PhysicalConstant {
         double uN = 6.62606957E-34 ;
         btna2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + uN;
                 textFieldDisplay.setText(value);
             }
@@ -194,6 +180,7 @@ public class PhysicalConstant {
         double uB = 9.27400968E-24 ;
         btnb2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + uB;
                 textFieldDisplay.setText(value);
             }
@@ -207,6 +194,7 @@ public class PhysicalConstant {
         double Dc = 1.054571726E-34 ;
         btnc2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + Dc;
                 textFieldDisplay.setText(value);
             }
@@ -220,6 +208,7 @@ public class PhysicalConstant {
         double a = 7.29735257E-3 ;
         btnd2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + a;
                 textFieldDisplay.setText(value);
             }
@@ -233,7 +222,8 @@ public class PhysicalConstant {
         double re = 2.817940327E-15 ;
         btn3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btn2.getText();
+            	textFieldDisplay.setText(" ");
+                String value = textFieldDisplay.getText() + re;
                 textFieldDisplay.setText(value);
             }
         });
@@ -246,7 +236,8 @@ public class PhysicalConstant {
         double CW = 2.426310239E-12 ;
         btna3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() + btna3.getText();
+            	textFieldDisplay.setText(" ");
+                String value = textFieldDisplay.getText() + CW;
                 textFieldDisplay.setText(value);
             }
         });
@@ -259,6 +250,7 @@ public class PhysicalConstant {
         double GRP = 267522200.5 ;
         btnb3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + GRP;
                 textFieldDisplay.setText(value);
             }
@@ -272,6 +264,7 @@ public class PhysicalConstant {
         double CWp = 1.321409856E-15 ;
         btnc3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + CWp;
                 textFieldDisplay.setText(value);
             }
@@ -285,6 +278,7 @@ public class PhysicalConstant {
         double CWn = 1.319590907 ;
         btnd3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + CWn;
                 textFieldDisplay.setText(value);
             }
@@ -299,6 +293,7 @@ public class PhysicalConstant {
         double C = 3E8 ;
         btn4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + C;
                 textFieldDisplay.setText(value);
             }
@@ -312,6 +307,7 @@ public class PhysicalConstant {
         double u = 1.660538921E-27 ;
         btna4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + u;
                 textFieldDisplay.setText(value);
             }
@@ -325,6 +321,7 @@ public class PhysicalConstant {
         double up = 1.410606743E-26 ;
         btnb4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + up;
                 textFieldDisplay.setText(value);
             }
@@ -338,6 +335,7 @@ public class PhysicalConstant {
         double ue = -9.2847643E-24 ;
         btnc4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + ue;
                 textFieldDisplay.setText(value);
             }
@@ -351,6 +349,7 @@ public class PhysicalConstant {
         double un = -9.6623647E-27 ;
         btnd4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() +un;
                 textFieldDisplay.setText(value);
             }
@@ -365,6 +364,7 @@ public class PhysicalConstant {
         double uu = -4.49044807E-26 ;
         btn5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + uu;
                 textFieldDisplay.setText(value);
             }
@@ -378,6 +378,7 @@ public class PhysicalConstant {
         double F= 96485.3365 ;
         btna5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + F;
                 textFieldDisplay.setText(value);
             }
@@ -388,10 +389,11 @@ public class PhysicalConstant {
         PhysicalConstanFframe.getContentPane().add(btna5);
 
         JButton btnb5 = new JButton("e");
-        double e = 1.602176565E-19 ;
+        double eC = 1.602176565E-19 ;
         btnb5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String value = textFieldDisplay.getText() +e;
+            	textFieldDisplay.setText(" ");
+                String value = textFieldDisplay.getText() +eC;
                 textFieldDisplay.setText(value);
             }
         });
@@ -404,6 +406,7 @@ public class PhysicalConstant {
         double NA = 6.02214129E23 ;
         btnc5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() +NA;
                 textFieldDisplay.setText(value);
             }
@@ -417,6 +420,7 @@ public class PhysicalConstant {
         double k = 1.3806488E-23 ;
         btnd5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + k;
                 textFieldDisplay.setText(value);
             }
@@ -431,6 +435,7 @@ public class PhysicalConstant {
         double Vm = 0.022710953 ;
         btn6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + Vm;
                 textFieldDisplay.setText(value);
             }
@@ -444,6 +449,7 @@ public class PhysicalConstant {
         double R = 8.3144621 ;
         btna6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + R;
                 textFieldDisplay.setText(value);
             }
@@ -457,6 +463,7 @@ public class PhysicalConstant {
         double C0 = 299792458 ;
         btnb6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + C0;
                 textFieldDisplay.setText(value);
             }
@@ -470,6 +477,7 @@ public class PhysicalConstant {
         double C1 = 3.74177153E-16 ;
         btnc6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + C1;
                 textFieldDisplay.setText(value);
             }
@@ -483,6 +491,7 @@ public class PhysicalConstant {
         double C2 = 1.438777E-2 ;
         btnd6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + C2;
                 textFieldDisplay.setText(value);
             }
@@ -497,6 +506,7 @@ public class PhysicalConstant {
         double Stp = 5.670373E-8 ;
         btn7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + Stp;
                 textFieldDisplay.setText(value);
             }
@@ -510,6 +520,7 @@ public class PhysicalConstant {
         double e0 = 8.854187817E-12 ;
         btna7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + e0;
                 textFieldDisplay.setText(value);
             }
@@ -523,6 +534,7 @@ public class PhysicalConstant {
         double u0 = 1.256637061E-12 ;
         btnb7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + u0;
                 textFieldDisplay.setText(value);
             }
@@ -536,6 +548,7 @@ public class PhysicalConstant {
         double QF = 2.067833758E-15 ;
         btnc7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + QF;
                 textFieldDisplay.setText(value);
             }
@@ -549,6 +562,7 @@ public class PhysicalConstant {
         double g = 9.80665 ;
         btnd7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + g;
                 textFieldDisplay.setText(value);
             }
@@ -563,6 +577,7 @@ public class PhysicalConstant {
         double G0 = 7.748091735E-5 ;
         btn8.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + G0;
                 textFieldDisplay.setText(value);
             }
@@ -576,6 +591,7 @@ public class PhysicalConstant {
         double Z0 = 376.7303    ;
         btna8.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + Z0;
                 textFieldDisplay.setText(value);
             }
@@ -589,6 +605,7 @@ public class PhysicalConstant {
         double t = 273.15 ;
         btnb8.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + t;
                 textFieldDisplay.setText(value);
             }
@@ -602,6 +619,7 @@ public class PhysicalConstant {
         double G = 6.67384E-11 ;
         btnc8.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + G;
                 textFieldDisplay.setText(value);
             }
@@ -615,6 +633,7 @@ public class PhysicalConstant {
         double atm = 101325 ;
         btnd8.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	textFieldDisplay.setText(" ");
                 String value = textFieldDisplay.getText() + atm;
                 textFieldDisplay.setText(value);
             }
@@ -623,6 +642,34 @@ public class PhysicalConstant {
         btnd8.setFont(new Font("Tahoma", Font.BOLD, 12));
         btnd8.setBounds(280, 350, 60, 28);
         PhysicalConstanFframe.getContentPane().add(btnd8);
+        
+        JMenuBar menuBar = new JMenuBar();
+        PhysicalConstanFframe.setJMenuBar(menuBar);
+        
+        JMenu mnNewMenu = new JMenu("Help");
+        menuBar.add(mnNewMenu);
+        
+		/**
+		 * Opening ReadMe file.
+		 */
+        
+        JMenuItem mntmNewMenuItem = new JMenuItem("Read Me");
+        mntmNewMenuItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		 try {
+ 			        Desktop desktop = null;
+ 			        if (Desktop.isDesktopSupported()) {
+ 			          desktop = Desktop.getDesktop();
+ 			        }
+
+ 			         desktop.open(new File("src/constants.pdf"));
+ 			         } catch (IOException ioe) {
+ 			        	 ioe.printStackTrace();
+ 			        	 }
+        		
+        	}
+        });
+        mnNewMenu.add(mntmNewMenuItem);
 
 
 
